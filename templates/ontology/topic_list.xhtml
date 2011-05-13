@@ -1,0 +1,18 @@
+{% extends "blog/base.xhtml" %}
+
+{% block content-title %}{{ title }}{% endblock %}
+
+{% block content-body %}
+{% if topics %}
+{% for topic in topics %}
+    <div id="topic-{{ topic.id }}" class="post-brief">
+            <div id="topic-title-{{ topic.id }}" class="post-title-brief">
+                    <a href="{% url topic:detail topic.path %}">{{ topic.text }}</a>
+            </div>
+            <div id="topic-description-{{ post.id }}" class="post-body-brief">
+                    {{ topic.description|safe }}
+            </div>
+    </div>
+{% endfor %}
+{% endif %}
+{% endblock %}

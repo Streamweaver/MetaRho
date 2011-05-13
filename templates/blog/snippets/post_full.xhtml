@@ -1,0 +1,8 @@
+{% extend "blog/base.xhtml" %}
+
+{% block content-title %}{{ post.title }}{% endblock %}
+
+{% block content-body %}
+{% include "blog/snippets/post_meta.xhtml" %}
+{{ post.content|safe }}
+{% endblock %}

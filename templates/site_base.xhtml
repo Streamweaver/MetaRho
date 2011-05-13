@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+  <title>
+    {% block page-title %}MetaRho {% block page-subtitle %} - Home{% endblock %}{% endblock %}
+  </title>
+
+  {% block page-head %}
+    {% comment %}Put Extra Header information here.  Use block.super to keep the icon.{% endcomment %}
+  	<link rel="shortcut icon" href="/sitemedia/favicon.ico" type="image/x-icon" />
+        {% if alt_links %}
+            {% for link in alt_links %}
+            <link rel="alternate" type="{{ link.type }}" title="{{ link.title }}" href="{{ link.href }}" />
+            {% endfor %}
+        {% endif %}
+  {% endblock %}
+
+  {% block style %}
+    <link rel="stylesheet" type="text/css" href="/sitemedia/style/html-elements.css" />
+    <link rel="stylesheet" type="text/css" href="/sitemedia/style/layout.css" />
+    <link rel="stylesheet" type="text/css" href="/sitemedia/style/local.css" />
+  {% endblock %}
+
+	{% block scripts %}
+	    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	{% endblock %}
+</head>
+
+<body>
+  <div id="page"><div id="page-inner">
+
+    {% comment %}Skip-To links are for accessabilty by screenreaders and such.  {% endcomment %}
+    <div id="skip-to">
+        <a href="#navigation">Skip to Navigation</a>
+        <a href="#content">Skip to Content</a>
+    </div> <!-- /#skip-to -->
+
+    <div id="header">
+    	<div id="header-inner">
+    	<h1>Meta<em>Rho</em></h1>
+    	</div> <!-- /#header-inner -->
+	</div> <!-- /#header -->
+	
+	{% block navbar %}
+	<div id="navbar">
+		<div id="navbar-inner">
+			<a href="#navigation"></a>
+			<ul id="navlinks">
+			{% block navlinks %}
+				<li>Replace Me</li>
+			{% endblock %}
+			</ul>
+		</div>
+	</div>
+	{% endblock %}
+	
+    <div id="main">
+    	<div id="main-inner">
+    	
+    		{% block sidebar-left %}
+            <div id="sidebar-left">
+                <div id="sidebar-left-inner">
+                  {% block sidebar-left-blocks %}{% endblock %}
+                </div> <!-- /#sidebar-left-inner -->
+             </div> <!-- /#sidebar-left -->
+             {% endblock %}
+
+            {% block sidebar-right %}
+            {% endblock %}
+
+            <div id="content">
+                <div id="content-inner">
+                    <a name="#content"></a>
+
+                    {% block message %}{% endblock %}
+
+                    <div id="content-header">
+                         {% block content-header  %}
+                            <h1 class="title">{% block content-title %}{% endblock %}</h1>
+                        {% endblock %}
+                    </div> <!-- /#content-header -->
+
+                    <div id="content-area">
+                        {% block content-body %}
+                        {% endblock %}
+                    </div> <!-- /#content-area -->
+
+
+                    <div id="content-bottom">
+                        {% block content-bottom %}{% endblock %}
+                    </div> <!-- /#content-bottom -->
+
+                </div> <!-- /#content-inner -->
+            </div> <!-- /#content -->
+
+        </div> <!-- /#main-inner -->
+    </div> <!-- /#main -->
+
+
+	<div id="footer">
+		<div id="footer-inner">
+			{%  block footer %}{% endblock %}
+	    </div> <!-- /#footer-inner -->
+	</div><!-- /#footer -->
+
+  </div></div> <!-- /#page-inner, /#page -->
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% comment %}
+Creates a block listing months with published posts.
+{% endcomment %}
+
+<div id="topic-block" class="block">
+    <div id="topic-block-inner" class="block-inner">
+    <h2>Archive</h2>
+    <ul>
+        {% for date in dates %}
+            <li><a href="{% url blog:list-month date|date:"Y" date|date:"M" %}" title="Archive for {{ date|date:"F" }} {{ date|date:"Y" }}">
+                    {{ date|date:"F" }} {{ date|date:"Y" }}</a></li>
+        {% empty %}
+            No Arhived Posts.
+        {% endfor %}
+    </ul>
+    </div> <!-- /topic-block-inner -->
+</div> <!-- /topic-block -->

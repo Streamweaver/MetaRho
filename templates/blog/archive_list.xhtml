@@ -1,0 +1,20 @@
+{% extends "blog/base.xhtml" %}
+
+{% block content-title %}{{ title }}{% endblock %}
+
+{% block content-body %}
+    {% load pagination_tags %}
+    {% autopaginate dates %}
+    <ul>
+    {% for date in dates %}
+        <li><a href="{% url blog:list-month date|date:"Y" date|date:"M" %}" title="Archive for {{ date|date:"F" }} {{ date|date:"Y" }}">
+                {{ date|date:"F" }} {{ date|date:"Y" }}</a></li>
+    {% empty %}
+        <li>No Archived Posts</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block content-bottom %}
+    {% paginate %}
+{% endblock %}

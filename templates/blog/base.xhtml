@@ -1,0 +1,13 @@
+{% extends "site_base.xhtml" %}
+{% load blog_tags %}
+
+{% block sidebar-left-blocks %}
+{{ block.super }}
+    {% archive_list %}
+{% endblock %}
+
+{% block navlinks %}
+        <li><a href="{% url site-index %}">Home</a></li>
+        <li><a href="">Topics</a></li>
+        <li><a href="">Tags</a></li>
+{% endblock %}

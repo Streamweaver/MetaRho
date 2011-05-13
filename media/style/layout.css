@@ -1,0 +1,123 @@
+body {
+    color: #d7d7d7;
+    background: #000000 url("images/dk_grey_bg.jpg") repeat-x;
+}
+
+h1 em { color: #FFFFFF;
+    font-style: italic;
+}
+
+/* Headlines */
+h1, h2, h3, h4 {
+    color: #C26413;
+}
+
+h1.title {
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Navigation and Accessability Links */
+#skip-to {
+    position: absolute;
+    margin-left: -1000px;
+}
+
+#page {
+    margin: 0;
+}
+
+/* Content */
+#content {
+    display: block;
+    margin-left: 220px;
+}
+
+/* Sidebars */
+#sidebar-left {
+    display: block;
+    margin: 0 10px 0 10px;
+    width: 200px;
+    float: left;
+}
+/* header */
+#header {
+    height: 104px;
+    background-image: url("images/grey_vert_pinstripe.jpg");
+    border-bottom: 1px solid #FFFFFF;
+}
+#header-inner {
+    padding: 2em 4em;
+}
+
+/* Navbar */
+#navbar {
+    background-color: #000000;
+    border-bottom:1px solid #E1E1E1;
+    display:block;
+    position:absolute;
+    width:100%;
+}
+#navbar ul
+{
+    border-left: 1px #E1E1E1 solid;
+    padding-left: 0;
+    margin: 0 4em;
+    float: left;
+    width: 100%;
+    font-family: arial, helvetica, sans-serif;
+    background-color: #000000;
+}
+
+#navbar ul li { display: inline; }
+
+#navbar ul li a
+{
+    padding: 0.2em 1em;
+    color: White;
+    text-decoration: none;
+    float: left;
+    border-right: 1px solid #fff;
+}
+
+#navbar ul li a:hover
+{
+    background-color: #369;
+    color: #fff;
+}
+
+/* MAIN AREA */
+#main {
+    margin: 3em 3em;
+}
+
+/* Classes */
+.post-brief {
+    margin-bottom: 1.5em;
+}
+.post-title-brief {
+    font-size: 130%;
+    font-weight: bold;
+}
+
+.post-body-brief {
+    margin: 5px 10px 0;
+}
+
+.post-title-brief a {
+    
+}
+
+.post-meta {
+    color: #666666;
+}
+
+.post-footer-brief {
+    font-size: 105%;
+    margin: .25em 0 .25em 0;
+    color: #cc3300;
+}
+
+.block {
+    margin-bottom: 18px;
+}

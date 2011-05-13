@@ -1,0 +1,17 @@
+{% comment %}
+Creates a block listing topics and subtopics.
+{% endcomment %}
+
+<div id="topic-block" class="block">
+    <div id="topic-block-inner" class="block-inner">
+    <h2>Topics</h2>
+    <ul>
+        {% for topic in topics %}
+            <li><a href="{% url blog:post-topic topic.path %}" title="{{ topic.description|striptags }}">
+                    {{ topic.text }}</a> ({{ topic.post_set.published.count }} posts)</li>
+        {% empty %}
+            No Topics Found.
+        {% endfor %}
+    </ul>
+    </div> <!-- /topic-block-inner -->
+</div> <!-- /topic-block -->
