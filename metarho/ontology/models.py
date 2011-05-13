@@ -18,6 +18,8 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
+from metarho import unique_slugify
+
 class Tag(models.Model):
     '''
     Tags for blog entries that can cross relate information between users

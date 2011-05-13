@@ -19,6 +19,8 @@
 # is more aptly tested there than here.  Tests here covers only functionality
 # completely encapsulated in this application.
 
+from django.test import TestCase
+
 from metarho.ontology.models import Tag
 from metarho.ontology.models import Topic
 

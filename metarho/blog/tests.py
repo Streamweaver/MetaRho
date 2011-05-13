@@ -245,9 +245,9 @@ class ViewTest(TestCase):
             code = self.client.get(url).status_code
             self.failUnlessEqual(expected, code, 'Expected %s but returned %s for %s' % (expected, code, url))
             # Test Feed
-            url = '%s?format=rss' % url
-            code = self.client.get(url).status_code
-            self.failUnlessEqual(expected, code, 'Expected %s but returned %s for %s' % (expected, code, url))
+#            url = '%s?format=rss' % url
+#            code = self.client.get(url).status_code
+#            self.failUnlessEqual(expected, code, 'Expected %s but returned %s for %s' % (expected, code, url))
 
     def test_post_month(self):
         '''Tests the return of month archives.'''
@@ -258,9 +258,9 @@ class ViewTest(TestCase):
             code = self.client.get(url).status_code
             self.failUnlessEqual(expected, code, 'Expected %s but returned %s for %s' % (expected, code, url))
             # Test Feed
-            feed_url = '%s?format=rss' % url
-            feed_code = self.client.get(feed_url).status_code
-            self.failUnlessEqual(expected, feed_code, 'Expected %s but returned %s for %s' % (expected, feed_code, feed_url))
+#            feed_url = '%s?format=rss' % url
+#            feed_code = self.client.get(feed_url).status_code
+#            self.failUnlessEqual(expected, feed_code, 'Expected %s but returned %s for %s' % (expected, feed_code, feed_url))
 
     def test_post_day(self):
         '''Tests the return for a post day list.'''
@@ -278,37 +278,21 @@ class ViewTest(TestCase):
         posts = len(response.context['posts'])
         self.failUnlessEqual(posts, expected, 'Expected %s posts but returned %s for %s' % (expected, posts, url))
 
-    def test_post_tag(self):
-        '''Tests the tags list for posts.'''
-        
-        url = reverse('blog:post-tag', args=['ligula'])
-        expected = 200
-        response = self.client.get(url)
-        code = response.status_code
-        self.failUnlessEqual(expected, code, 'Expected %s but returned %s for %s' % (expected, code, url))
-        posts = len(response.context['posts'])
-        self.failUnlessEqual(1, posts, 'Expected %s but returned %s posts in %s' % (1, posts, url))
+#    def test_post_tag(self):
+#        '''Tests the tags list for posts.'''
+#
+#        url = reverse('blog:post-tag', args=['ligula'])
+#        expected = 200
+#        response = self.client.get(url)
+#        code = response.status_code
+#        self.failUnlessEqual(expected, code, 'Expected %s but returned %s for %s' % (expected, code, url))
+#        posts = len(response.context['posts'])
+#        self.failUnlessEqual(1, posts, 'Expected %s but returned %s posts in %s' % (1, posts, url))
 
-    def test_tag_all(self):
-        '''Tests the return of the tags page.'''
-        url = reverse('blog:tag-list')
-        expected = 200
-        response = self.client.get(url)
-        code = response.status_code
-        self.failUnlessEqual(expected, code, 'Expected %s but returned %s for %s' % (expected, code, url))
-
-    def test_topic_all(self):
-        '''Tests the return of the topics page.'''
-        url = reverse('blog:topic-list')
-        expected = 200
-        response = self.client.get(url)
-        code = response.status_code
-        self.failUnlessEqual(expected, code, 'Expected %s but returned %s for %s' % (expected, code, url))
-
-    def test_post_topic(self):
-        '''Test the return of posts under a topic.'''
-        url = reverse('blog:post-topic', args=['consectetur-adipiscing/'])
-        expected = 200
-        response = self.client.get(url)
-        code = response.status_code
-        self.failUnlessEqual(expected, code, 'Expected %s but returned %s for %s' % (expected, code, url))
+#    def test_tag_all(self):
+#        '''Tests the return of the tags page.'''
+#        url = reverse('blog:tag-list')
+#        expected = 200
+#        response = self.client.get(url)
+#        code = response.status_code
+#        self.failUnlessEqual(expected, code, 'Expected %s but returned %s for %s' % (expected, code, url))
