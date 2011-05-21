@@ -177,7 +177,7 @@ function init() {
 
 	// Parse primary stylesheet
 	tinymce.each(doc.getElementsByTagName("link"), function(l) {
-		var m = l.getAttribute('media', 2) || '', t = l.getAttribute('type', 2) || '';
+		var m = l.getAttribute('sitemedia', 2) || '', t = l.getAttribute('type', 2) || '';
 
 		if (t == "-mce-text/css" && (m == "" || m == "screen" || m == "all") && (l.getAttribute('rel', 2) || '') == "stylesheet") {
 			f.stylesheet.value = l.getAttribute('_mce_href', 2) || '';
@@ -287,7 +287,7 @@ function updateAction() {
 	for (i=0; i<nl.length; i++) {
 		l = nl[i];
 
-		tmp = tinyMCEPopup.dom.getAttrib(l, 'media');
+		tmp = tinyMCEPopup.dom.getAttrib(l, 'sitemedia');
 
 		if (tinyMCEPopup.dom.getAttrib(l, '_mce_type') == "text/css" && (tmp == "" || tmp == "screen" || tmp == "all") && tinyMCEPopup.dom.getAttrib(l, 'rel') == "stylesheet") {
 			addlink = false;
@@ -353,7 +353,7 @@ function updateAction() {
 		doc.body.style.backgroundImage = '';
 
 	ser = tinyMCEPopup.editor.plugins.fullpage._createSerializer();
-	ser.setRules('-title,meta[http-equiv|name|content],base[href|target],link[href|rel|type|title|media],style[type],script[type|language|src],html[lang|xml::lang|xmlns],body[style|dir|vlink|link|text|alink],head');
+	ser.setRules('-title,meta[http-equiv|name|content],base[href|target],link[href|rel|type|title|sitemedia],style[type],script[type|language|src],html[lang|xml::lang|xmlns],body[style|dir|vlink|link|text|alink],head');
 
 	h = ser.serialize(doc.documentElement);
 	h = h.substring(0, h.lastIndexOf('</body>'));

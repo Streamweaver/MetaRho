@@ -130,8 +130,8 @@ fullscreen:{
 desc:"Toggle fullscreen mode"
 },
 media:{
-desc:"Insert / edit embedded media",
-edit:"Edit embedded media"
+desc:"Insert / edit embedded sitemedia",
+edit:"Edit embedded sitemedia"
 },
 fullpage:{
 desc:"Document properties"

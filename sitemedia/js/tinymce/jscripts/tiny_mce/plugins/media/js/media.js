@@ -47,11 +47,11 @@ function init() {
 		document.forms[0].insert.value = ed.getLang('update', 'Insert', true); 
 	}
 
-	document.getElementById('filebrowsercontainer').innerHTML = getBrowserHTML('filebrowser','src','media','media');
-	document.getElementById('qtsrcfilebrowsercontainer').innerHTML = getBrowserHTML('qtsrcfilebrowser','qt_qtsrc','media','media');
+	document.getElementById('filebrowsercontainer').innerHTML = getBrowserHTML('filebrowser','src','sitemedia','sitemedia');
+	document.getElementById('qtsrcfilebrowsercontainer').innerHTML = getBrowserHTML('qtsrcfilebrowser','qt_qtsrc','sitemedia','sitemedia');
 	document.getElementById('bgcolor_pickcontainer').innerHTML = getColorPickerHTML('bgcolor_pick','bgcolor');
 
-	var html = getMediaListHTML('medialist','src','media','media');
+	var html = getMediaListHTML('medialist','src','sitemedia','sitemedia');
 	if (html == "")
 		document.getElementById("linklistrow").style.display = 'none';
 	else

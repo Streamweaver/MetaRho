@@ -30,9 +30,9 @@
 			// Register commands
 			ed.addCommand('mceMedia', function() {
 				ed.windowManager.open({
-					file : url + '/media.htm',
-					width : 430 + parseInt(ed.getLang('media.delta_width', 0)),
-					height : 470 + parseInt(ed.getLang('media.delta_height', 0)),
+					file : url + '/sitemedia.htm',
+					width : 430 + parseInt(ed.getLang('sitemedia.delta_width', 0)),
+					height : 470 + parseInt(ed.getLang('sitemedia.delta_height', 0)),
 					inline : 1
 				}, {
 					plugin_url : url
@@ -40,10 +40,10 @@
 			});
 
 			// Register buttons
-			ed.addButton('media', {title : 'media.desc', cmd : 'mceMedia'});
+			ed.addButton('sitemedia', {title : 'sitemedia.desc', cmd : 'mceMedia'});
 
 			ed.onNodeChange.add(function(ed, cm, n) {
-				cm.setActive('media', n.nodeName == 'IMG' && isMediaElm(n));
+				cm.setActive('sitemedia', n.nodeName == 'IMG' && isMediaElm(n));
 			});
 
 			ed.onInit.add(function() {
@@ -81,7 +81,7 @@
 				if (ed && ed.plugins.contextmenu) {
 					ed.plugins.contextmenu.onContextMenu.add(function(th, m, e) {
 						if (e.nodeName == 'IMG' && /mceItem(Flash|ShockWave|WindowsMedia|QuickTime|RealMedia)/.test(e.className)) {
-							m.add({title : 'media.edit', icon : 'media', cmd : 'mceMedia'});
+							m.add({title : 'sitemedia.edit', icon : 'sitemedia', cmd : 'mceMedia'});
 						}
 					});
 				}
@@ -197,7 +197,7 @@
 				longname : 'Media',
 				author : 'Moxiecode Systems AB',
 				authorurl : 'http://tinymce.moxiecode.com',
-				infourl : 'http://wiki.moxiecode.com/index.php/TinyMCE:Plugins/media',
+				infourl : 'http://wiki.moxiecode.com/index.php/TinyMCE:Plugins/sitemedia',
 				version : tinymce.majorVersion + "." + tinymce.minorVersion
 			};
 		},
@@ -258,7 +258,7 @@
 
 			each (p, function(v, k) {
 				if (!/^(width|height|codebase|classid|id|_cx|_cy)$/.test(k)) {
-					// Use url instead of src in IE for Windows media
+					// Use url instead of src in IE for Windows sitemedia
 					if (o.type == 'application/x-mplayer2' && k == 'src' && !p.url)
 						k = 'url';
 
@@ -410,5 +410,5 @@
 	});
 
 	// Register plugin
-	tinymce.PluginManager.add('media', tinymce.plugins.MediaPlugin);
+	tinymce.PluginManager.add('sitemedia', tinymce.plugins.MediaPlugin);
 })();
