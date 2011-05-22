@@ -33,8 +33,8 @@
 
     {% comment %}Skip-To links are for accessabilty by screenreaders and such.  {% endcomment %}
     <div id="skip-to">
-        <a href="#navigation">Skip to Navigation</a>
-        <a href="#content">Skip to Content</a>
+        <a href="site_base.xhtml#navigation">Skip to Navigation</a>
+        <a href="site_base.xhtml#content">Skip to Content</a>
     </div> <!-- /#skip-to -->
 
     <div id="header">
@@ -46,7 +46,7 @@
 	{% block navbar %}
 	<div id="navbar">
 		<div id="navbar-inner">
-			<a href="#navigation"></a>
+			<a href="site_base.xhtml#navigation"></a>
 			<ul id="navlinks">
 			{% block navlinks %}
 				<li>Replace Me</li>
@@ -79,6 +79,7 @@
                     <div id="content-header">
                          {% block content-header  %}
                             <h1 class="title">{% block content-title %}{% endblock %}</h1>
+                             Statis URL is: {{ STATIC_URL }}
                         {% endblock %}
                     </div> <!-- /#content-header -->
 
