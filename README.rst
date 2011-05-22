@@ -1,8 +1,13 @@
 Overview
 ========
 
-MetaRho is a personal publishing platform with features focused on semantic web
-technologies
+MetaRho is a basic blogging app I use for my site.  I am incorporating code and
+extensions to better support tagging, linked data and general semantic web
+interaction.
+
+The application itself is simple enough and sufficient for anyone looking for a
+basic blogging app.  More likely there be some code examples some folks may find
+useful or interesting. 
 
 Why Should You Use MetaRho?
 ----------------------------
