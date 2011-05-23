@@ -6,8 +6,7 @@
 Welcome to MetaRho's documentation!
 ===================================
 
-.. include:: ../metarho/README.rst
-.. include:: ../externals/README.rst
+.. include:: ../README.rst
 
 Contents:
 =========

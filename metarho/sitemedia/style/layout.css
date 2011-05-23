@@ -42,12 +42,12 @@ h1.title {
 }
 /* header */
 #header {
-    height: 104px;
+    height: 50px;
     background-image: url("images/grey_vert_pinstripe.jpg");
     border-bottom: 1px solid #FFFFFF;
 }
 #header-inner {
-    padding: 2em 4em;
+    padding: 1em 4em;
 }
 
 /* Navbar */

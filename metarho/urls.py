@@ -29,11 +29,9 @@ urlpatterns = patterns('',
     (r'^', include("metarho.blog.urls", namespace="blog")),
 )
 
-# DISABLE THIS IN PRODUCTION
-if settings.DEV_ENV:
-    from os import path
-    urlpatterns += patterns('',
-        (r'^sitemedia/(?P<path>.*)$', 'django.views.static.serve', {
-            'document_root': path.join(settings.BASE_DIR, '../media')
-            }),
+# Enables serving of static files by Django if DEBUG is set to true
+# Primarily used to serve static files in development.
+if settings.DEBUG:
+    urlpatterns += patterns('django.contrib.staticfiles.views',
+        url(r'^sitemedia/(?P<path>.*)$', 'serve'),
     )

@@ -27,7 +27,6 @@ from metarho import render_with_context
 from metarho.blog.models import Post
 from metarho.blog.feeds import PostsFeedAtom
 from metarho.blog.feeds import feed_render
-from metarho.ontology.models import Tag
 
 # All Posts List Methods.
 def post_all_feed(request):

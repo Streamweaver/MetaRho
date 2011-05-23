@@ -9,18 +9,18 @@
 
   {% block page-head %}
     {% comment %}Put Extra Header information here.  Use block.super to keep the icon.{% endcomment %}
-  	<link rel="shortcut icon" href="/sitemedia/favicon.ico" type="image/x-icon" />
+  	<link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico" type="image/x-icon" />
         {% if alt_links %}
             {% for link in alt_links %}
             <link rel="alternate" type="{{ link.type }}" title="{{ link.title }}" href="{{ link.href }}" />
             {% endfor %}
-        {% endif %}
+        {% endif %} 
   {% endblock %}
 
   {% block style %}
-    <link rel="stylesheet" type="text/css" href="/sitemedia/style/html-elements.css" />
-    <link rel="stylesheet" type="text/css" href="/sitemedia/style/layout.css" />
-    <link rel="stylesheet" type="text/css" href="/sitemedia/style/local.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}style/html-elements.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}style/layout.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}style/local.css" />
   {% endblock %}
 
 	{% block scripts %}

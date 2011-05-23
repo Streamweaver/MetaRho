@@ -34,7 +34,7 @@ class PostAdmin(admin.ModelAdmin):
     '''
     search_fields = ['title']
     list_display = ('title', 'status')
-    list_filter = ('status', 'pub_date', 'author', 'topics')
+    list_filter = ('status', 'pub_date', 'author')
     inlines = [PostMetaInline,]
     formfield_overrides = { models.TextField: {'widget': forms.Textarea(attrs={'class':'tinymce'})}, }
     
