@@ -21,14 +21,13 @@ from datetime import timedelta
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
-from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.test.client import Client
 
 from metarho.blog.models import Post
-from metarho.blog.importer import WordPressExportParser
-from metarho.ontology.models import Tag
-from metarho.ontology.models import Topic
+#from metarho.blog.importer import WordPressExportParser
+#from metarho.ontology.models import Tag
+#from metarho.ontology.models import Topic
 
 # CUSTOM MANAGER TESTS
 
@@ -126,72 +125,73 @@ class PostTest(TestCase):
         post2.save()
         expected = 'test-title-1-2'
         self.failUnlessEqual(post2.slug, expected, 'Post2 slug was %s but expected %s' % (post2.slug, expected))
-        
-class WordPressExportParserTest(TestCase):
-    '''Tests the import scripts as it relates to interation with blog app.'''
 
-    fixtures = ['loremauth.json',]
-
-    def setUp(self):
-        self.owner = User.objects.get(pk=1)
-        file = 'blog/fixtures/wordpress.test.xml'
-        self.wp = WordPressExportParser(file, self.owner.username)
-
-    def test_import_tags(self):
-        '''Tests the Tag Import'''
-        self.wp.import_tags()
-        expected = 30
-        actual = Tag.objects.all().count()
-        self.failUnlessEqual(expected, actual, 'Expected %s and return %s Tags.' % (expected, actual))
-  
-    def test_import_topics(self):
-        '''Test the import of Topics.'''
-        self.wp.import_catagories()
-        expected = 2
-        actual = Topic.objects.all().count()
-        self.failUnlessEqual(expected, actual, 'Expected %s and returned %s Topics.' % (expected, actual))
-  
-    def test_import_posts(self):
-        '''Tests the Import of posts.'''
-        
-        # Make a user to assign as an author.
-        user = User(username='Fakeuser', password='notgood', email='fakeuser@email.com')
-        user.save()
-        
-        # Start with zero posts.
-        posts = Post.objects.published()
-        expected = 0
-        actual = posts.count()
-        self.failUnlessEqual(expected, actual, 'Expected %s posts and parsed %s.' % (expected, actual))
-        
-        # Import the blog entries.
-        self.wp.import_catagories()
-        self.wp.import_tags()
-        self.wp.import_posts()
-        posts = Post.objects.all()
-        expected = 4
-        actual = posts.count()
-        self.failUnlessEqual(expected, actual, 'Imported %s posts but expected %s.' % (actual, expected))
-        
-        # Test creation of post meta and 
-        testpost  = Post.objects.get(slug='here-we-go')
-        
-        # Test PostMeta being created correctly.
-        postmeta = testpost.postmeta_set.all()
-        expected = 13
-        actual = postmeta.count()
-        self.failUnlessEqual(expected, actual, 'Expected %s and returned %s Post Meta attributes.' % (expected, actual))
-    
-        # Test Tags being created and related correctly.
-        tagcount = testpost.tags.count()
-
-        expected = 1
-        self.failUnlessEqual(expected, tagcount, 'Expected %s and returned %s tags.' % (expected, tagcount))
-        
-        # Test Topics being created and related correctly.
-        topiccount = testpost.topics.all().count()
-        expected = 1
-        self.failUnlessEqual(expected, topiccount, 'Expected %s and returned %s topics.' % (expected, topiccount))
+# Removing until I rebuild overall blog structure and am ready to refactor importer.
+#class WordPressExportParserTest(TestCase):
+#    '''Tests the import scripts as it relates to interation with blog app.'''
+#
+#    fixtures = ['loremauth.json',]
+#
+#    def setUp(self):
+#        self.owner = User.objects.get(pk=1)
+#        file = 'blog/fixtures/wordpress.test.xml'
+#        self.wp = WordPressExportParser(file, self.owner.username)
+#
+#    def test_import_tags(self):
+#        '''Tests the Tag Import'''
+#        self.wp.import_tags()
+#        expected = 30
+#        actual = Tag.objects.all().count()
+#        self.failUnlessEqual(expected, actual, 'Expected %s and return %s Tags.' % (expected, actual))
+#
+#    def test_import_topics(self):
+#        '''Test the import of Topics.'''
+#        self.wp.import_catagories()
+#        expected = 2
+#        actual = Topic.objects.all().count()
+#        self.failUnlessEqual(expected, actual, 'Expected %s and returned %s Topics.' % (expected, actual))
+#
+#    def test_import_posts(self):
+#        '''Tests the Import of posts.'''
+#
+#        # Make a user to assign as an author.
+#        user = User(username='Fakeuser', password='notgood', email='fakeuser@email.com')
+#        user.save()
+#
+#        # Start with zero posts.
+#        posts = Post.objects.published()
+#        expected = 0
+#        actual = posts.count()
+#        self.failUnlessEqual(expected, actual, 'Expected %s posts and parsed %s.' % (expected, actual))
+#
+#        # Import the blog entries.
+#        self.wp.import_catagories()
+#        self.wp.import_tags()
+#        self.wp.import_posts()
+#        posts = Post.objects.all()
+#        expected = 4
+#        actual = posts.count()
+#        self.failUnlessEqual(expected, actual, 'Imported %s posts but expected %s.' % (actual, expected))
+#
+#        # Test creation of post meta and
+#        testpost  = Post.objects.get(slug='here-we-go')
+#
+#        # Test PostMeta being created correctly.
+#        postmeta = testpost.postmeta_set.all()
+#        expected = 13
+#        actual = postmeta.count()
+#        self.failUnlessEqual(expected, actual, 'Expected %s and returned %s Post Meta attributes.' % (expected, actual))
+#
+#        # Test Tags being created and related correctly.
+#        tagcount = testpost.tags.count()
+#
+#        expected = 1
+#        self.failUnlessEqual(expected, tagcount, 'Expected %s and returned %s tags.' % (expected, tagcount))
+#
+#        # Test Topics being created and related correctly.
+#        topiccount = testpost.topics.all().count()
+#        expected = 1
+#        self.failUnlessEqual(expected, topiccount, 'Expected %s and returned %s topics.' % (expected, topiccount))
         
 class ViewTest(TestCase):
     '''
@@ -278,6 +278,7 @@ class ViewTest(TestCase):
         posts = len(response.context['posts'])
         self.failUnlessEqual(posts, expected, 'Expected %s posts but returned %s for %s' % (expected, posts, url))
 
+# Removing until I reintegrate tagging and topics.
 #    def test_post_tag(self):
 #        '''Tests the tags list for posts.'''
 #
