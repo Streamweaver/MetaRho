@@ -186,8 +186,8 @@ class PostsFeed(feeds.Feed):
         categories.
         
         """
-        cats = [topic.text for topic in item.topics.published()]
-        return cats.extend([tag.text for tag in item.tags.published()])
+
+        return []
 
 class PostsFeedAtom(PostsFeed):
 
