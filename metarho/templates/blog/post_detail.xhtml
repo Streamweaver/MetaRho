@@ -1,8 +1,28 @@
 {% extends "blog/base.xhtml" %}
-
-{% block content-title %}{{ post.title }}{% endblock %}
+{% load site_tags %}
+{% block page-subtitle %} - {{ post.title }}{% endblock %}
+{% block content-title %}
+    {{ post.title }}
+    <div id="social_nav_horizontal">
+    {% url blog:post-detail post.pub_date.year post.pub_date|date:"b" post.pub_date.day post.slug as post_url %}
+          <ul>
+            <li><a class="delicious" href="http://del.icio.us/post?url={{ "http://"|urlencode:"" }}{% sitedomain %}{{ "/"|urlencode:"" }}{{ post_url|urlencode:"" }}" title="Bookmark on del.icio.us">Delicious</a>
+            <li><a class="facebook" href="http://www.facebook.com/sharer.php?u={{ "http://"|urlencode:"" }}{% sitedomain %}{{ "/"|urlencode:"" }}{{ post_url|urlencode:"" }}"  title="{{ post.title }}" >Facebook</a></li>
+            <li><a class="stumbleupon" href="http://www.stumbleupon.com/submit? url={{ "http://"|urlencode:"" }}{% sitedomain %}{{ "/"|urlencode:"" }}{{ post_url|urlencode:"" }}" title="Stumble This Page" > Stumble</a></li>
+            <li><a class="twitter" href="http://twitter.com/home?status={{ post.title|urlencode }}%20-%20{{ "http://"|urlencode:"" }}{% sitedomain %}{{ "/"|urlencode:"" }}{{ post_url|urlencode:"" }}%20@Streamweaver" title="Tweet This Page" >Twitter</a></li>
+          </ul>
+    </div>
+{% endblock %}
 
 {% block content-body %}
-{% include "blog/snippets/post_meta.xhtml" %}
-	{{ post.content|safe }}
+
+    <div id="post-detail" class="post-box">
+        {% include "blog/snippets/post_meta.xhtml" %}
+        <div id="post-content">
+            {{ post.content|safe }}
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer">
+    Comments: <em>Not Active</em>
+    </div>
 {% endblock %}

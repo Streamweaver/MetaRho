@@ -144,7 +144,7 @@ h1.title {
 }
 
 /* Classes */
-.post-brief {
+.post-box {
     margin-bottom: 1.5em;
     padding: 1em 1.5em;
     background-color: #141212;
@@ -166,12 +166,15 @@ h1.title {
 .post-meta {
     color: #993300;
 }
+#post-detail .post-meta {
+    margin-bottom: .75em;
+}
 
-.post-footer-brief {
+.post-footer-brief, .post-footer {
     margin: .25em 0 .25em 0;
     color: #C26413;
 }
-.post-footer-brief em {
+.post-footer-brief em, .post-footer em {
     color: #ffffff;
     font-style: italic;
 }
