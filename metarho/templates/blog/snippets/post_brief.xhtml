@@ -20,10 +20,9 @@
 
           <ul>
             <li><strong>Share:</strong> </li>
-            <li><a class="delicious" href="http://del.icio.us/post?url={{ "http://"|urlencode:"" }}{% sitedomain %}{{ post_url|urlencode:"" }}" title="Bookmark on del.icio.us">Delicious</a>
-            <li><a class="facebook" href="http://www.facebook.com/sharer.php?u={{ "http://"|urlencode:"" }}{% sitedomain %}{{ post_url|urlencode:"" }}"  title="{{ post.title }}" >Facebook</a></li>
-            <li><a class="stumbleupon" href="http://www.stumbleupon.com/submit? url={{ "http://"|urlencode:"" }}{% sitedomain %}{{ post_url|urlencode:"" }}" title="Stumble This Page" > Stumble</a></li>
-            <li><a class="twitter" href="http://twitter.com/home?status={{ post.title|urlencode }}%20-%20{{ "http://"|urlencode:"" }}{% sitedomain %}{{ post_url|urlencode:"" }}%20@Streamweaver" title="Tweet This Page" >Twitter</a></li>
+            <li><a class="facebook" href="http://www.facebook.com/sharer.php?u={{ "http://"|urlencode:"" }}{% sitedomain %}{{ post_url|urlencode:"" }}"  title="{{ post.title }}" target="_blank">Facebook</a></li>
+            <li><a class="stumbleupon" href="http://www.stumbleupon.com/submit? url={{ "http://"|urlencode:"" }}{% sitedomain %}{{ post_url|urlencode:"" }}" title="Stumble This Page" target="_blank"> Stumble</a></li>
+            <li><a class="twitter" href="http://twitter.com/home?status={{ post.title|urlencode }}%20-%20{{ "http://"|urlencode:"" }}{% sitedomain %}{{ post_url|urlencode:"" }}%20@Streamweaver" title="Tweet This Page" target="_blank">Twitter</a></li>
           </ul>
         </div>
             Comments: <em>Not Enabled</em>
