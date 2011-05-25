@@ -6,10 +6,10 @@
     <div id="social_nav_horizontal">
     {% url blog:post-detail post.pub_date.year post.pub_date|date:"b" post.pub_date.day post.slug as post_url %}
           <ul>
-            <li><a class="delicious" href="http://del.icio.us/post?url={{ "http://"|urlencode:"" }}{% sitedomain %}{{ "/"|urlencode:"" }}{{ post_url|urlencode:"" }}" title="Bookmark on del.icio.us">Delicious</a>
-            <li><a class="facebook" href="http://www.facebook.com/sharer.php?u={{ "http://"|urlencode:"" }}{% sitedomain %}{{ "/"|urlencode:"" }}{{ post_url|urlencode:"" }}"  title="{{ post.title }}" >Facebook</a></li>
-            <li><a class="stumbleupon" href="http://www.stumbleupon.com/submit? url={{ "http://"|urlencode:"" }}{% sitedomain %}{{ "/"|urlencode:"" }}{{ post_url|urlencode:"" }}" title="Stumble This Page" > Stumble</a></li>
-            <li><a class="twitter" href="http://twitter.com/home?status={{ post.title|urlencode }}%20-%20{{ "http://"|urlencode:"" }}{% sitedomain %}{{ "/"|urlencode:"" }}{{ post_url|urlencode:"" }}%20@Streamweaver" title="Tweet This Page" >Twitter</a></li>
+            <li><a class="delicious" href="http://del.icio.us/post?url={{ "http://"|urlencode:"" }}{% sitedomain %}{{ post_url|urlencode:"" }}" title="Bookmark on del.icio.us">Delicious</a>
+            <li><a class="facebook" href="http://www.facebook.com/sharer.php?u={{ "http://"|urlencode:"" }}{% sitedomain %}{{ post_url|urlencode:"" }}"  title="{{ post.title }}" >Facebook</a></li>
+            <li><a class="stumbleupon" href="http://www.stumbleupon.com/submit? url={{ "http://"|urlencode:"" }}{% sitedomain %}{{ post_url|urlencode:"" }}" title="Stumble This Page" > Stumble</a></li>
+            <li><a class="twitter" href="http://twitter.com/home?status={{ post.title|urlencode }}%20-%20{{ "http://"|urlencode:"" }}{% sitedomain %}{{ post_url|urlencode:"" }}%20@Streamweaver" title="Tweet This Page" >Twitter</a></li>
           </ul>
     </div>
 {% endblock %}
