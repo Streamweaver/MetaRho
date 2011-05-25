@@ -30,14 +30,14 @@ h1.title {
 /* Content */
 #content {
     display: block;
-    margin-left: 220px;
+    margin-left: 190px;
 }
 
 /* Sidebars */
 #sidebar-left {
     display: block;
     margin: 0 10px 0 10px;
-    width: 200px;
+    width: 170px;
     float: left;
 }
 /* header */
@@ -47,7 +47,17 @@ h1.title {
     border-bottom: 1px solid #FFFFFF;
 }
 #header-inner {
-    padding: 1em 4em;
+    padding: 1em 2em;
+}
+
+#header-feedlink {
+    float: right;
+    display: block;
+    width: 64px;
+    height: 50px;
+    margin-right: 1em;
+    background-image: url("images/rss_wallbreak_64x64.png");
+    text-indent: -9999px;
 }
 
 /* Navbar */
@@ -88,20 +98,65 @@ h1.title {
 
 /* MAIN AREA */
 #main {
-    margin: 3em 3em;
+    margin: 2.5em 1em;
+}
+
+/* Social Media Links */
+#social_nav_horizontal {
+    float: right;
+}
+#social_nav_horizontal strong {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+#social_nav_horizontal ul {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+#social_nav_horizontal ul li {
+  float: left;
+  list-style-type: none;
+}
+#social_nav_horizontal ul li a {
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin-right: .1em;
+    text-indent: -9999px;
+}
+
+#social_nav_horizontal ul li a.facebook {
+    background-image: url("images/social_icons16x16/facebook.png");
+}
+#social_nav_horizontal ul li a.twitter {
+    background-image: url("images/social_icons16x16/twitter.png");
+}
+#social_nav_horizontal ul li a.stumbleupon {
+    background-image: url("images/social_icons16x16/stumble.png");
+}
+#social_nav_horizontal ul li a.digg {
+    background-image: url("images/social_icons16x16/digg.png");
+}
+#social_nav_horizontal ul li a.delicious {
+    background-image: url("images/social_icons16x16/delicious.png");
 }
 
 /* Classes */
 .post-brief {
     margin-bottom: 1.5em;
+    padding: 1em 1.5em;
+    background-color: #141212;
 }
+
 .post-title-brief {
     font-size: 130%;
     font-weight: bold;
 }
 
 .post-body-brief {
-    margin: 5px 10px 0;
+    margin: .5em 1.5em 0;
 }
 
 .post-title-brief a {
@@ -109,12 +164,19 @@ h1.title {
 }
 
 .post-meta {
-    color: #666666;
+    color: #993300;
 }
 
 .post-footer-brief {
-    font-size: 105%;
     margin: .25em 0 .25em 0;
+    color: #C26413;
+}
+.post-footer-brief em {
+    color: #ffffff;
+    font-style: italic;
+}
+
+a:link.readmore, a:visited.readmore {
     color: #cc3300;
 }
 
