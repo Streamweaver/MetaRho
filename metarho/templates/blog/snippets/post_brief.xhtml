@@ -19,10 +19,10 @@
 
           <ul>
             <li><strong>Share:</strong> </li>
-            <li><a class="delicious" href="http://del.icio.us/post?url={% url blog:post-detail post.pub_date.year post.pub_date|date:"b" post.pub_date.day post.slug %}" title="Bookmark on del.icio.us">Delicious</a>
-            <li><a class="facebook" href="http://www.facebook.com/sharer.php?u={% url blog:post-detail post.pub_date.year post.pub_date|date:"b" post.pub_date.day post.slug %}"  title="Share this on Facebook" >Facebook</a></li>
-            <li><a class="stumbleupon" href="http://www.stumbleupon.com/submit? url={% url blog:post-detail post.pub_date.year post.pub_date|date:"b" post.pub_date.day post.slug %}" title="Stumble This Page" > Stumble</a></li>
-            <li><a class="twitter" href="http://twitter.com/home?status={{ post.title }}- {% url blog:post-detail post.pub_date.year post.pub_date|date:"b" post.pub_date.day post.slug %} @Streamweaver" title="Tweet This Page" >Twitter</a></li>
+            <li><a class="delicious" href="http://del.icio.us/post?url={{ post_url|urlencode }}" title="Bookmark on del.icio.us">Delicious</a>
+            <li><a class="facebook" href="http://www.facebook.com/sharer.php?u={{ post_url|urlencode }}"  title="{{ post.title }}" >Facebook</a></li>
+            <li><a class="stumbleupon" href="http://www.stumbleupon.com/submit? url={{ post_url|urlencode }}" title="Stumble This Page" > Stumble</a></li>
+            <li><a class="twitter" href="http://twitter.com/home?status={{ post.title|urlencode }}%20-%20{{ post_url|urlencode }}%20@Streamweaver" title="Tweet This Page" >Twitter</a></li>
           </ul>
         </div>
             Comments: <em>Not Enabled</em>
