@@ -15,6 +15,7 @@ h1, h2, h3, h4 {
 h1.title {
     margin-bottom: 10px;
     display: block;
+    color: #ffffff;
 }
 
 /* Navigation and Accessability Links */
@@ -28,9 +29,14 @@ h1.title {
 }
 
 /* Content */
-#content {
+#content, #footer {
     display: block;
     margin-left: 190px;
+}
+
+#footer-inner {
+    padding: 1em 1.5em;
+    text-align: center;
 }
 
 /* Sidebars */
@@ -159,12 +165,8 @@ h1.title {
     margin: .5em 1.5em 0;
 }
 
-.post-title-brief a {
-    
-}
-
 .post-meta {
-    color: #993300;
+    color: #C26413;
 }
 #post-detail .post-meta {
     margin-bottom: .75em;
@@ -177,10 +179,6 @@ h1.title {
 .post-footer-brief em, .post-footer em {
     color: #ffffff;
     font-style: italic;
-}
-
-a:link.readmore, a:visited.readmore {
-    color: #cc3300;
 }
 
 .block {

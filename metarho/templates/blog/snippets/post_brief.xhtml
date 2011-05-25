@@ -1,4 +1,3 @@
-{% load site_tags %}
 {% url blog:post-detail post.pub_date.year post.pub_date|date:"b" post.pub_date.day post.slug as post_url %}
 <div id="post-{{ post.id }}" class="post-box">
     <div class="post-brief-inner">
@@ -16,15 +15,7 @@
         </div> <!-- /post-body-brief -->
 
         <div id="post-footer-{{ post.id }}" class="post-footer-brief">
-        <div id="social_nav_horizontal">
 
-          <ul>
-            <li><strong>Share:</strong> </li>
-            <li><a class="facebook" href="http://www.facebook.com/sharer.php?u={{ "http://"|urlencode:"" }}{% sitedomain %}{{ post_url|urlencode:"" }}"  title="{{ post.title }}" target="_blank">Facebook</a></li>
-            <li><a class="stumbleupon" href="http://www.stumbleupon.com/submit? url={{ "http://"|urlencode:"" }}{% sitedomain %}{{ post_url|urlencode:"" }}" title="Stumble This Page" target="_blank"> Stumble</a></li>
-            <li><a class="twitter" href="http://twitter.com/home?status={{ post.title|urlencode }}%20-%20{{ "http://"|urlencode:"" }}{% sitedomain %}{{ post_url|urlencode:"" }}%20@Streamweaver" title="Tweet This Page" target="_blank">Twitter</a></li>
-          </ul>
-        </div>
             Comments: <em>Not Enabled</em>
             {% if post.tags.all %}
             Tags:

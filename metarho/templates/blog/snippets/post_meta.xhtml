@@ -1,9 +1,11 @@
 <div id="post-{{ post.id }}" class="post-meta">
-Posted <span class="since">{{ post.pub_date|timesince }} ago</span>  by {{ post.author.username }} 
-on <a href="{% url blog:list-day post.pub_date.year, post.pub_date|date:"b", post.pub_date.day %}">
-{{ post.pub_date|date:"d" }}</a> 
-<a href="{% url blog:list-month post.pub_date.year, post.pub_date|date:"b" %}">
-{{ post.pub_date|date:"F" }}</a> 
-<a href="{% url blog:list-year post.pub_date.year %}">
-{{ post.pub_date|date:"Y" }}</a>
+    Posted <span class="since">{{ post.pub_date|timesince }} ago</span>  by {{ post.author.username }}
+    on <a href="{% url blog:list-day post.pub_date.year, post.pub_date|date:"b", post.pub_date.day %}">
+    {{ post.pub_date|date:"d" }}</a>
+    <a href="{% url blog:list-month post.pub_date.year, post.pub_date|date:"b" %}">
+    {{ post.pub_date|date:"F" }}</a>
+    <a href="{% url blog:list-year post.pub_date.year %}">
+    {{ post.pub_date|date:"Y" }}</a>
+
+    {% include "blog/snippets/socialnav_posts.xhtml" %}
 </div>

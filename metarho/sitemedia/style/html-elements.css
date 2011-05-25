@@ -44,7 +44,7 @@ h4 {
 
 /* Anchors */
 a, a:link, a:visited {
-	color: #FFFFFF;
+	color: orange;
 	text-decoration: none;
 }
 a:hover, a:active, a.active {
