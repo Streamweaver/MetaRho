@@ -1,3 +1,4 @@
+{% url blog:post-detail post.pub_date.year post.pub_date|date:"b" post.pub_date.day post.slug as post_url %}
 <div id="post-{{ post.id }}" class="post-brief">
     <div class="post-brief-inner">
 	<div id="post-title-{{ post.id }}" class="post-title-brief">
@@ -9,7 +10,7 @@
 	<div id="post-summary-{{ post.id }}" class="post-body-brief">
 		{{ post.content|safe|truncatewords_html:300 }}
         {% if post.content|wordcount > 300 %}
-            (<a href="{% url blog:post-detail post.pub_date.year post.pub_date|date:"b" post.pub_date.day post.slug %}" class="readmore">Read More</a>)
+            (<a href="{{ post_url }}" class="readmore">Read More</a>)
         {% endif %}
         </div> <!-- /post-body-brief -->
 
