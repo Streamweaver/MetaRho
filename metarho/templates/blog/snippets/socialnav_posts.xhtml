@@ -1,0 +1,11 @@
+{% load site_tags %}
+<div id="social_nav_horizontal">
+
+  <ul>
+    <li><strong>Share:</strong> </li>
+    <li><a class="facebook" href="http://www.facebook.com/sharer.php?u={{ "http://"|urlencode:"" }}{% sitedomain %}{{ post_url|urlencode:"" }}"  title="{{ post.title }}" target="_blank">Facebook</a></li>
+    <li><a class="stumbleupon" href="http://www.stumbleupon.com/submit? url={{ "http://"|urlencode:"" }}{% sitedomain %}{{ post_url|urlencode:"" }}" title="Stumble This Page" target="_blank"> Stumble</a></li>
+    <li><a class="twitter" href="http://twitter.com/home?status={{ post.title|urlencode }}%20-%20{{ "http://"|urlencode:"" }}{% sitedomain %}{{ post_url|urlencode:"" }}%20@Streamweaver" title="Tweet This Page" target="_blank">Twitter</a></li>
+  </ul>
+
+</div>
