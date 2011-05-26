@@ -1,11 +1,18 @@
 {% load site_tags %}
-<div id="social_nav_horizontal">
-
-  <ul>
-    <li><strong>Share:</strong> </li>
-    <li><a class="facebook" href="http://www.facebook.com/sharer.php?u={{ "http://"|urlencode:"" }}{% sitedomain %}{{ post_url|urlencode:"" }}"  title="{{ post.title }}" target="_blank">Facebook</a></li>
-    <li><a class="stumbleupon" href="http://www.stumbleupon.com/submit? url={{ "http://"|urlencode:"" }}{% sitedomain %}{{ post_url|urlencode:"" }}" title="Stumble This Page" target="_blank"> Stumble</a></li>
-    <li><a class="twitter" href="http://twitter.com/home?status={{ post.title|urlencode }}%20-%20{{ "http://"|urlencode:"" }}{% sitedomain %}{{ post_url|urlencode:"" }}%20@Streamweaver" title="Tweet This Page" target="_blank">Twitter</a></li>
-  </ul>
-
+{% comment %}
+	Code added from my account at www.addthis.com
+{% endcomment %}
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style social_nav "
+  addthis:url="http://{% sitedomain %}{{ post_url }}" 
+>
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
 </div>
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4dddd2d021b142f5"></script>
+<!-- AddThis Button END -->

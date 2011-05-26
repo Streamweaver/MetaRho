@@ -108,45 +108,10 @@ h1.title {
 }
 
 /* Social Media Links */
-#social_nav_horizontal {
+.social_nav {
+    display: inline;
     float: right;
-}
-#social_nav_horizontal strong {
-    display: block;
-    margin: 0;
-    padding: 0;
-}
-#social_nav_horizontal ul {
-    display: block;
-    margin: 0;
-    padding: 0;
-}
-#social_nav_horizontal ul li {
-  float: left;
-  list-style-type: none;
-}
-#social_nav_horizontal ul li a {
-    display: block;
-    width: 16px;
-    height: 16px;
-    margin-right: .1em;
-    text-indent: -9999px;
-}
-
-#social_nav_horizontal ul li a.facebook {
-    background-image: url("images/social_icons16x16/facebook.png");
-}
-#social_nav_horizontal ul li a.twitter {
-    background-image: url("images/social_icons16x16/twitter.png");
-}
-#social_nav_horizontal ul li a.stumbleupon {
-    background-image: url("images/social_icons16x16/stumble.png");
-}
-#social_nav_horizontal ul li a.digg {
-    background-image: url("images/social_icons16x16/digg.png");
-}
-#social_nav_horizontal ul li a.delicious {
-    background-image: url("images/social_icons16x16/delicious.png");
+    width: 150px;
 }
 
 /* Classes */
