@@ -43,5 +43,5 @@ def wp_post_redirect(view_fn):
             except Post.DoesNotExist:
                 raise Http404
         return view_fn(request, *args, **kwargs)
-    
+
     return decorator

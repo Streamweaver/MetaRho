@@ -109,6 +109,7 @@ INSTALLED_APPS = (
     'metarho.account',
     'metarho.sitemeta',
     'metarho.blog',
+    'south',
 )
 
 # A sample logging configuration. The only tangible logging
