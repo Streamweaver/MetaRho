@@ -20,10 +20,10 @@ import time
 from django.http import Http404
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
+from django.shortcuts import render
 
 from metarho.blog.decorators import wp_post_redirect
 from metarho.decorators import format_req
-from metarho import render_with_context
 from metarho.blog.models import Post
 from metarho.blog.feeds import PostsFeedAtom
 from metarho.blog.feeds import feed_render
@@ -46,7 +46,7 @@ def post_all(request):
     {'type': 'application/atom+xml', 'title': 'Atom Feed', 'href': '%s?format=rss' % reverse('blog:index')}
     ]
     
-    return render_with_context(request, 'blog/post_list.xhtml', {
+    return render(request, 'blog/post_list.xhtml', {
             'title': 'All Posts',                                                
             'posts': posts,
             'alt_links': alt_links,
@@ -72,7 +72,7 @@ def post_year(request, year):
     date = datetime.date(*tt[:3])
     posts = Post.objects.published().filter(pub_date__year=date.year)
     
-    return render_with_context(request, 'blog/post_list.xhtml', {
+    return render(request, 'blog/post_list.xhtml', {
             'posts': posts,
             'title': 'Posts for %s' % date.strftime("%Y"),                                     
             })
@@ -97,7 +97,7 @@ def post_month(request, year, month):
     posts = Post.objects.published().filter(pub_date__year=date.year, 
                             pub_date__month=date.month)
     
-    return render_with_context(request, 'blog/post_list.xhtml', {
+    return render(request, 'blog/post_list.xhtml', {
             'posts': posts,
             'title': 'Posts for %s' % date.strftime("%B %Y"),                                     
             })
@@ -122,7 +122,7 @@ def post_day(request, year, month, day):
     posts = Post.objects.published().filter(pub_date__year=date.year, 
                             pub_date__month=date.month, pub_date__day=date.day)
     
-    return render_with_context(request, 'blog/post_list.xhtml', {
+    return render(request, 'blog/post_list.xhtml', {
             'posts': posts,
             'title': 'Posts for %s' % date.strftime("%A, %d %B %Y"),                                     
             })
@@ -138,7 +138,7 @@ def post_detail(request, year, month, day, slug):
     except Post.DoesNotExist:
         raise Http404
     
-    return render_with_context(request, 'blog/post_detail.xhtml', {
+    return render(request, 'blog/post_detail.xhtml', {
             'post': post,
             'title': post.title,                                     
             })
@@ -146,7 +146,7 @@ def post_detail(request, year, month, day, slug):
 def archive_list(request):
     """Returns a list of months by year with published posts."""
     dates = Post.objects.published().order_by('pub_date').dates('pub_date', 'month')
-    return render_with_context(request, 'blog/archive_list.xhtml', {
+    return render(request, 'blog/archive_list.xhtml', {
             'dates': dates,
             'title': 'Post Archive',
             })
@@ -156,7 +156,7 @@ def tag_list(request, slug):
     """Returns blog entries for this tag slug."""
     tag = get_object_or_404(Tag, slug=slug)
     posts = Post.objects.published().filter(tags__tag__slug=slug)
-    return render_with_context(request, 'blog/post_list.xhtml', {
+    return render(request, 'blog/post_list.xhtml', {
         'posts': posts,
         'title': 'Posts tagged under %s' % tag.text,
         })
