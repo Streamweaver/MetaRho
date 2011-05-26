@@ -18,7 +18,9 @@ import datetime
 import time
 
 from django.http import Http404
+from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
@@ -27,6 +29,7 @@ from metarho.decorators import format_req
 from metarho.blog.models import Post
 from metarho.blog.feeds import PostsFeedAtom
 from metarho.blog.feeds import feed_render
+from metarho.blog.forms import PostForm
 
 # All Posts List Methods.
 def post_all_feed(request):
@@ -142,6 +145,34 @@ def post_detail(request, year, month, day, slug):
             'post': post,
             'title': post.title,                                     
             })
+
+# Post Admin views
+@login_required
+def post_edit(request, id=None):
+    """
+        Handles creating or updating of individual blog posts.
+
+        :parm request: request object being sent to the view.
+        :param id: post id, defaults to None if new post.
+        
+       """
+    instance = None
+    if id:
+        instance = get_object_or_404(Post, id=id)
+
+    # Create the form as needed.
+    form = PostForm(request.POST or None, instance)
+
+    # Save the edited form if needed
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('blog:post-detail', args=[form['pub_date'].year, form['pub_date'].month, form['pub_date'].day, form['slug']]))
+        
+    return render(request, 'blog/post_edit.xhtml', {
+        'form': form,
+    })
+
+# Archive views of posts.
 
 def archive_list(request):
     """Returns a list of months by year with published posts."""

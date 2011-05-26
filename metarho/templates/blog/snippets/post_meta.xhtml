@@ -6,6 +6,9 @@
     {{ post.pub_date|date:"F" }}</a>
     <a href="{% url blog:list-year post.pub_date.year %}">
     {{ post.pub_date|date:"Y" }}</a>
+    {%  if user.is_authenticated %}
+        | <a href="{% url blog:post-edit post.id %}">edit post</a>
+    {%  endif %}
 
     {% include "blog/snippets/socialnav_posts.xhtml" %}
 </div>
