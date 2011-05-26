@@ -1,6 +1,6 @@
 # file __init__.py
 #
-# Copyright 2010 Scott Turnbull
+# Copyright 2010, 2011 Scott Turnbull
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,8 +16,14 @@
 
 import re
 from django.template.defaultfilters import slugify
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+
+# Set some version info for the package.
+__version_info__ = (0, 5, 0, None)
+
+# Dot-connect all but the last. Last is dash-connected if not None.
+__version__ = '.'.join([ str(i) for i in __version_info__[:-1] ])
+if __version_info__[-1] is not None:
+    __version__ += ('-%s' % (__version_info__[-1],))
 
 # Some Constants I'll use for various content.
 PUBLISHED_STATUS = 'P'
