@@ -1,14 +1,37 @@
 {% extends "blog/base.xhtml" %}
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/ckeditor/adapters/jquery.js"></script>
+    <script type="text/javascript">
+    //<![CDATA[
+
+    $(function()
+    {
+        var config = {
+        };
+        // Initialize the editor.
+        // Callback function can be passed and executed after full instance creation.
+        $('#id_content').ckeditor(config);
+        $('#id_teaser').ckeditor(config);
+    });
+
+    //]]>
+    </script>
+
+{% endblock %}
 
 {% block content-title %}{{ title }}{% endblock %}
 
 {% block content-body %}
     <form action="" method="post">
+    {% csrf_token %}
         {% for field in form %}
             <div class="fieldWrapper">
                 {{ field.errors }}
-                {{ field.label_tag }}: {{ field }}
+                {{ field.label_tag }} {{ field }}
             </div>
         {%  endfor %}
+    <input type="submit" />
     </form>
 {%  endblock %}

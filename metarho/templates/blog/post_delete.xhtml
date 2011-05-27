@@ -1,0 +1,20 @@
+{% extends "blog/base.xhtml" %}
+
+{% block content-title %}{{ title }}{% endblock %}
+
+{% block content-body %}
+    {% if deleted %}
+        <strong>Post has been deleted.</strong>
+    {% else %}
+        <form action="" method="post">
+        {% csrf_token %}
+            {% for field in form %}
+                <div class="fieldWrapper">
+                    {{ field.errors }}
+                    {{ field.label_tag }}{{ field }} <em>{{ field.help_text }}</em>
+                </div>
+            {%  endfor %}
+        <input type="submit" value="Delete" />
+        </form>
+    {% endif %}
+{%  endblock %}

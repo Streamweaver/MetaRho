@@ -21,15 +21,20 @@ from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
+from metarho import PUBLISHED_STATUS
+from metarho import PUB_STATUS
+from metarho import unique_slugify
 from metarho.blog.decorators import wp_post_redirect
 from metarho.decorators import format_req
 from metarho.blog.models import Post
 from metarho.blog.feeds import PostsFeedAtom
 from metarho.blog.feeds import feed_render
 from metarho.blog.forms import PostForm
+from metarho.blog.forms import ConfirmForm
 
 # All Posts List Methods.
 def post_all_feed(request):
@@ -160,16 +165,45 @@ def post_edit(request, id=None):
     if id:
         instance = get_object_or_404(Post, id=id)
 
+    title = "Create New Post"
+    if instance:
+        title = "Editing Post"
+
     # Create the form as needed.
-    form = PostForm(request.POST or None, instance)
+    form = PostForm(request.POST or None, instance=instance)
 
     # Save the edited form if needed
     if request.method == 'POST' and form.is_valid():
-        form.save()
-        return HttpResponseRedirect(reverse('blog:post-detail', args=[form['pub_date'].year, form['pub_date'].month, form['pub_date'].day, form['slug']]))
+        tmp_form = form.save(commit=False)
+        # Set author to current user if none set.
+        if not tmp_form.author:
+            tmp_form.author = request.user.id
+        # Set pub_date if none exist and post is published.
+        if tmp_form.status == PUBLISHED_STATUS and not tmp_form.pub_date:
+            tmp_form.pub_date = datetime.now()
+        tmp_form.save()
+        return HttpResponseRedirect(reverse('blog:post-edit', args=[tmp_form.id]))
         
     return render(request, 'blog/post_edit.xhtml', {
+        'title': title,
         'form': form,
+    })
+
+@login_required
+@permission_required('blog.delete_post')
+def post_delete(request, id):
+    """Deletes a post."""
+    
+    deleted = False # No success by default
+    post = get_object_or_404(Post, id=id) # Find the post or 404
+    form = ConfirmForm(request.POST or None) # Bind the form to post or deliver a fresh one.
+    if request.method == 'POST' and form.is_valid():
+        post.delete()
+        deleted = True # If post was deleted set to true to display the right message.
+    return render(request, 'blog/post_delete.xhtml', {
+        'title': 'Confirm Post Delete?',
+        'form': form,
+        'deleted': deleted,
     })
 
 # Archive views of posts.

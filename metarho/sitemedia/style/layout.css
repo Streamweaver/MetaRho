@@ -149,3 +149,15 @@ h1.title {
 .block {
     margin-bottom: 18px;
 }
+
+/* Forms */
+.fieldWrapper {
+    margin-bottom: 1em;
+}
+
+.fieldWrapper label {
+    color: #C26413;
+    font-size: 120%;
+    font-weight: bold;
+    display: block;
+}

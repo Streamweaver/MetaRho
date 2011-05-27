@@ -23,12 +23,13 @@
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}style/local.css" />
   {% endblock %}
 
-	{% block scripts %}
-	    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-	{% endblock %}
+    {% block scripts %}
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    {% endblock %}
 </head>
 
 <body>
+
   <div id="page"><div id="page-inner">
 
     {% comment %}Skip-To links are for accessabilty by screenreaders and such.  {% endcomment %}
@@ -109,5 +110,7 @@
 	</div><!-- /#footer -->
 
   </div></div> <!-- /#page-inner, /#page -->
+{% block footerscript %}
+{% endblock %}
 </body>
 </html>

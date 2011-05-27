@@ -25,5 +25,6 @@ urlpatterns = patterns('metarho.blog.views',
     url(r'^tag/(?P<slug>[0-9A-Za-z-]+)/', 'tag_list', name='tag-list'),
     url(r'^create/', 'post_edit', name='post-create'),
     url(r'^edit/(?P<id>[0-9]+)/', 'post_edit', name='post-edit'),
+    url(r'^delete/(?P<id>[0-9]+)/', 'post_delete', name='post-delete'),
     url(r'^/?$', 'post_all', name='index'),
 )

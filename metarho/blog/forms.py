@@ -16,10 +16,14 @@
 
 # Contains the various forms needed for managing and editing the blog app.
 
-from django.forms import ModelForm
+from django import forms
 
 from metarho.blog.models import Post
 
-class PostForm(ModelForm):
+class PostForm(forms.ModelForm):
     class Meta:
         model = Post
+        exclude = ('pub_date',)
+
+class ConfirmForm(forms.Form):
+     confirm = forms.BooleanField(help_text="This cannot be undone!")
