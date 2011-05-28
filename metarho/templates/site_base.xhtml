@@ -21,15 +21,19 @@
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}style/html-elements.css" />
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}style/layout.css" />
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}style/local.css" />
+      
+    {% comment %} SyntaxHighlighter styles {% endcomment %}
     <link href="{{ STATIC_URL }}js/sh/styles/shCore.css" rel="stylesheet" type="text/css" />
     <link href="{{ STATIC_URL }}js/sh/styles/shThemeEmacs.css" rel="stylesheet" type="text/css" />
+
   {% endblock %}
 
     {% block scripts %}
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+        {% comment %} Script Includes for SyntaxHighlighter {% endcomment %}
         <script type="text/javascript" src="{{ STATIC_URL }}js/sh/scripts/shCore.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/sh/scripts/shAutoloader.js"></script>
-
     {% endblock %}
 </head>
 
