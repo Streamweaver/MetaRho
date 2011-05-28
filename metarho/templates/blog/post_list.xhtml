@@ -9,7 +9,17 @@
         $('#tweetFeed').jTweetsAnywhere({
             username: 'streamweaver',
             count: 5,
-            showTweetBox: { label: '<span style="color: #D1C7BA">Spread the word ...</span>' }
+            showTweetBox: { label: '<span style="color: #D1C7BA">Spread the word ...</span>' },
+            showTweetFeed: {
+                autorefresh: {
+                    mode: 'trigger-insert',
+                    interval: 15
+                },
+                showTimestamp: {
+                    refreshInterval: 15
+                }
+
+            }
         });
     });
     </script>
@@ -18,7 +28,7 @@
 {% block style %}
     {{ block.super }}
     {% comment %} jTweetAnywhere Styles {% endcomment %}
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/jTweetsAnywhere/jquery.jtweetsanywhere-1.2.1.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}style/jquery.jtweetsanywhere-local.css" />
 {% endblock %}
 
 {% block sidebar-left-blocks %}

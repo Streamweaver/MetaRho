@@ -21,7 +21,7 @@ h1.title {
 /* Navigation and Accessability Links */
 #skip-to {
     position: absolute;
-    margin-left: -1000px;
+    margin-left: -9999px;
 }
 
 #page {
@@ -31,7 +31,7 @@ h1.title {
 /* Content */
 #content, #footer {
     display: block;
-    margin-left: 190px;
+    margin-left: 200px;
 }
 
 #footer-inner {
@@ -42,8 +42,8 @@ h1.title {
 /* Sidebars */
 #sidebar-left {
     display: block;
-    margin: 0 10px 0 10px;
-    width: 170px;
+    margin: 0 1em 0 0;
+    width: 190px;
     float: left;
 }
 /* header */
@@ -104,7 +104,10 @@ h1.title {
 
 /* MAIN AREA */
 #main {
-    margin: 2.5em 1em;
+    margin-top: 2.5em;
+    margin-bottom: 2.5em;
+    margin-right: 1em;
+    margin-left: 0em;
 }
 
 /* Social Media Links */
@@ -147,7 +150,9 @@ h1.title {
 }
 
 .block {
-    margin-bottom: 18px;
+    margin-bottom: 1em;
+    /*background-color: #0f0f0f;*/
+    padding: .25em .5em .25em .5em ;
 }
 
 /* Forms */
