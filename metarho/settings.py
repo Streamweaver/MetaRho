@@ -115,6 +115,7 @@ INSTALLED_APPS = (
 
 # Set to TRUE to including tagging in posts.
 ENABLE_POST_TAGS = True
+FORCE_LOWERCASE_TAGS = True # Override setting in tagging module.
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

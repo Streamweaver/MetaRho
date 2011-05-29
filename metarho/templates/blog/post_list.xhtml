@@ -35,6 +35,7 @@
 {% block sidebar-left-blocks %}
     {{ block.super }}
     {% include "blog/snippets/tweet_block.xhtml" %}
+    {% include "blog/snippets/tag_cloud_block.html" %}
 {% endblock %}
 
 {% block content-title %}{{ title }}{% endblock %}
