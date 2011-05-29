@@ -1,4 +1,5 @@
 {% load site_tags %}
+{% url blog:post-detail post.pub_date.year post.pub_date|date:"b" post.pub_date.day post.slug as post_url %}
 {% comment %}
 	Code added from my account at www.addthis.com
 {% endcomment %}
