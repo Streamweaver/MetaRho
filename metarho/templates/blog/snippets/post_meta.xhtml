@@ -1,3 +1,4 @@
+{% load tagging_tags %}
 <div id="post-{{ post.id }}" class="post-meta">
     Posted <span class="since">{{ post.pub_date|timesince }} ago</span>  by {{ post.author.username }}
     on <a href="{% url blog:list-day post.pub_date.year post.pub_date|date:"b" post.pub_date.day %}">
@@ -12,6 +13,5 @@
     {%  if user.is_authenticated %}
         | <a href="{% url blog:post-delete post.id %}">DELETE</a>
     {%  endif %}
-
     {% include "blog/snippets/socialnav_posts.xhtml" %}
 </div>

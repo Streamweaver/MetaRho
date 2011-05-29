@@ -1,3 +1,4 @@
+{% load tagging_tags %}
 {% url blog:post-detail post.pub_date.year post.pub_date|date:"b" post.pub_date.day post.slug as post_url %}
 <div id="post-{{ post.id }}" class="post-box">
     <div class="post-brief-inner">
@@ -15,22 +16,16 @@
         </div> <!-- /post-body-brief -->
 
         <div id="post-footer-{{ post.id }}" class="post-footer-brief">
-
-            Comments: <em>Not Enabled</em>
-            {% if post.tags.all %}
-            Tags:
-            {% for item in post.tags.all %}
-            <a href="{% url blog:tag-list item.tag.slug %}">{{ item.tag.text }}</a>{% ifnotequal forloop.revcounter0 0 %},{% endifnotequal %}
-            {% endfor %}
-            &laquo;&raquo;
+            {% if post.tags %}
+                <div id="post-{{ post.id }}-tags"></div>
+                    Tags:
+                    {% tags_for_object post as tags %}
+                    {% for tag in tags %}
+                        <a href="{% url blog:tag-post-list tag.name %}">{{ tag.name }}</a>
+                    {% endfor %}
+                </div>
             {% endif %}
-            {% if post.topics.all %}
-            Topics:
-            {% for item in post.topics.all %}
-                <a href="" title="{{ item.topic.description|striptags }}">
-                {{ item.topic }}</a>{% ifnotequal forloop.revcounter0 0 %}, {% endifnotequal %}
-            {% endfor %}
-            {% endif %}
+            <div id="post-{{ post.id }}-comment-summary"><em>Comments Not Enabled</em></div>
         </div> <!-- /post-footer-brief -->
     </div> <!-- /post-brief-inner -->
 </div> <!-- /post-brief -->
