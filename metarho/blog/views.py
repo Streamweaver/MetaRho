@@ -56,7 +56,7 @@ def post_all(request):
     
     return render(request, 'blog/post_list.xhtml', {
             'title': 'All Posts',                                                
-            'posts': posts,
+            'post_list': posts,
             'alt_links': alt_links,
             })
 
@@ -81,7 +81,7 @@ def post_year(request, year):
     posts = Post.objects.published().filter(pub_date__year=date.year)
     
     return render(request, 'blog/post_list.xhtml', {
-            'posts': posts,
+            'post_list': posts,
             'title': 'Posts for %s' % date.strftime("%Y"),                                     
             })
 
@@ -106,7 +106,7 @@ def post_month(request, year, month):
                             pub_date__month=date.month)
     
     return render(request, 'blog/post_list.xhtml', {
-            'posts': posts,
+            'post_list': posts,
             'title': 'Posts for %s' % date.strftime("%B %Y"),                                     
             })
 
@@ -131,7 +131,7 @@ def post_day(request, year, month, day):
                             pub_date__month=date.month, pub_date__day=date.day)
     
     return render(request, 'blog/post_list.xhtml', {
-            'posts': posts,
+            'post_list': posts,
             'title': 'Posts for %s' % date.strftime("%A, %d %B %Y"),                                     
             })
 
@@ -222,6 +222,6 @@ def tag_list(request, slug):
     tag = get_object_or_404(Tag, slug=slug)
     posts = Post.objects.published().filter(tags__tag__slug=slug)
     return render(request, 'blog/post_list.xhtml', {
-        'posts': posts,
+        'post_list': posts,
         'title': 'Posts tagged under %s' % tag.text,
         })

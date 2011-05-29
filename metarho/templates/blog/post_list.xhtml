@@ -41,12 +41,12 @@
 {% block content-title %}{{ title }}{% endblock %}
 
 {% block content-body %}
-	{% if posts %}
-	    {% for post in posts %}
+	{% if post_list %}
+	    {% for post in post_list %}
 	    	{% include "blog/snippets/post_brief.xhtml" %}
 	    {% endfor %}
 	
 	{% else %}
-	    <div class="summary warning">No projects were found.</div>
+	    <div class="summary warning">No Posts were found.</div>
 	{% endif %}
 {% endblock %}
