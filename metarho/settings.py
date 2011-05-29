@@ -109,8 +109,12 @@ INSTALLED_APPS = (
     'metarho.account',
     'metarho.sitemeta',
     'metarho.blog',
-    'south',
+    'south', # Depends on south migrations for managing schemas.
+    'tagging', # Comment out if not using Django Tagging.
 )
+
+# Set to TRUE to including tagging in posts.
+ENABLE_POST_TAGS = True
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

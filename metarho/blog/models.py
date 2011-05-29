@@ -26,6 +26,16 @@ from metarho import PUBLISHED_STATUS
 from metarho import PUB_STATUS
 from metarho import unique_slugify
 
+# Setup Other Apps to allow use without building strict dependencies.
+from metarho.settings import INSTALLED_APPS
+from metarho.settings import ENABLE_POST_TAGS
+
+POST_TAGGING = False # Default to false unless it passes the settings test below.
+if ENABLE_POST_TAGS and 'tagging' in INSTALLED_APPS:
+    import tagging
+    from tagging.fields import TagField
+    POST_TAGGING = True # Set true to tell model imports are done and fields ready.
+
 # CUSTOM MANAGERS
 
 class PostManager(models.Manager):
@@ -60,7 +70,11 @@ class Post(models.Model):
     status = models.CharField(max_length=1, choices=PUB_STATUS)
     date_created = models.DateTimeField(null=False, blank=False, auto_now_add=True)
     date_modified = models.DateTimeField(null=False, blank=False, auto_now=True, auto_now_add=True)
-    
+
+    # If tagging for posts is enable and everything is setup right add the fields.
+    if POST_TAGGING:
+        tags = TagField(blank=True, null=True)
+
     objects = PostManager()
 
     @models.permalink
