@@ -12,13 +12,14 @@
             showTweetBox: { label: '<span style="color: #D1C7BA">Spread the word ...</span>' },
             showTweetFeed: {
                 autorefresh: {
-                    mode: 'trigger-insert',
-                    interval: 15
+                    mode: 'auto-insert',
+                    interval: 15,
+                    duration: -1
                 },
+                paging: { mode: 'prev-next'},
                 showTimestamp: {
                     refreshInterval: 15
                 }
-
             }
         });
     });
