@@ -9,7 +9,7 @@ Creates a tag cloud block for posts using django-tagging
     <h2>Tag Cloud</h2>
         {%  tag_cloud_for_model blog.Post as post_tags with steps=8 distribution=log %}
         {% for tag in post_tags %}
-            <a href="{% url blog:tag-post-list tag.name %}" class="tag-{{ tag.font_size }}" title="tag {{ tag.name }} {{ tag.font_size }}">{{ tag.name }}</a>
+            <a href="{% url blog:tag-post-list tag.name %}" class="tag-{{ tag.font_size }}" title="tag {{ tag.name }}">{{ tag.name }}</a>
         {% endfor %}
     </div> <!-- /tag-cloud-block-inner -->
 </div> <!-- /tag-cloud-block -->
