@@ -18,8 +18,8 @@
         <div id="post-footer-{{ post.id }}" class="post-footer-brief">
             {% if post.tags %}
                 <div id="post-{{ post.id }}-tags"></div>
-                    Tags:
                     {% tags_for_object post as tags %}
+                    Tagged Under:
                     {% for tag in tags %}
                         <a href="{% url blog:tag-post-list tag.name %}">{{ tag.name }}</a>
                     {% endfor %}

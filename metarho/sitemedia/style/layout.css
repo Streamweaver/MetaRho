@@ -166,3 +166,15 @@ h1.title {
     font-weight: bold;
     display: block;
 }
+
+/* Tag Cloud Styles */
+a.tag-1 { font-size: 0.9em; font-weight: 100; }
+a.tag-2 { font-size: 1.0em; font-weight: 200; }
+a.tag-3 { font-size: 1.1em; font-weight: 300; }
+a.tag-4 { font-size: 1.2em; font-weight: 400; }
+a.tag-5 { font-size: 1.3em; font-weight: 500; }
+a.tag-6 { font-size: 1.4em; font-weight: 600; }
+a.tag-7 { font-size: 1.5em; font-weight: 700; }
+a.tag-8 { font-size: 1.6em; font-weight: 800; }
+a.tag-9 { font-size: 1.7em; font-weight: 900; }
+a.tag-10 { font-size: 1.8em; font-weight: 900; }
