@@ -23,6 +23,7 @@ from metarho.blog.models import Post
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
+        fields = ('title', 'author', 'status', 'tags', 'content', 'slug', 'teaser')
         exclude = ('pub_date',)
 
 class ConfirmForm(forms.Form):
