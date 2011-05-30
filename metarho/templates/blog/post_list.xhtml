@@ -38,7 +38,7 @@
     {% include "blog/snippets/tweet_block.xhtml" %}
 {% endblock %}
 
-{% block content-title %}{{ title }}{% endblock %}
+{% block content-title %}{{ title|safe }}{% endblock %}
 
 {% block content-body %}
 	{% if post_list %}

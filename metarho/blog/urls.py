@@ -29,6 +29,7 @@ urlpatterns = patterns('metarho.blog.views',
     url(r'^create/$', 'post_edit', name='post-create'),
     url(r'^edit/(?P<id>[0-9]+)/$', 'post_edit', name='post-edit'),
     url(r'^delete/(?P<id>[0-9]+)/$', 'post_delete', name='post-delete'),
-    url(r'^tag/(?P<tag>[^/]+)/$', tagged_object_list, dict(queryset_or_model=Post, template_object_name='post', template_name="blog/post_list.xhtml", extra_context={'title': "Posts by Tag"}), name='tag-post-list'),
+    url(r'^tag/$', 'tag_list', name='tag-list'),
+    url(r'^tag/(?P<tagname>[^/]+)/$', 'post_list_bytag', name='tag-post-list'),
     url(r'^/$', 'post_all', name='index'),
 )

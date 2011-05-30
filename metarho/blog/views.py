@@ -25,6 +25,9 @@ from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
+from tagging.models import Tag
+from tagging.models import TaggedItem
+
 from metarho import PUBLISHED_STATUS
 from metarho import PUB_STATUS
 from metarho import unique_slugify
@@ -225,3 +228,21 @@ def tag_list(request, slug):
         'post_list': posts,
         'title': 'Posts tagged under %s' % tag.text,
         })
+
+def post_list_bytag(request, tagname):
+    """Returns a list of Posts tagged with 'tagname'"""
+    tag = get_object_or_404(Tag, name=tagname)
+    post_list = TaggedItem.objects.get_by_model(Post, tag)
+    return render(request, 'blog/post_list.xhtml', {
+        'title': 'Posts tagged under <em>%s</em>' % tagname,
+        'post_list': post_list,
+
+    })
+
+def tag_list(request):
+    """Lists all tags."""
+    tag_list = Tag.objects.usage_for_model(Post, counts=True)
+    return render(request, 'blog/tag_list.xhtml', {
+        'title': 'All Tags on Posts',
+        'tag_list': tag_list,
+    })
