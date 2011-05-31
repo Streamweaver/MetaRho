@@ -2,30 +2,34 @@
 {% url blog:post-detail post.pub_date.year post.pub_date|date:"b" post.pub_date.day post.slug as post_url %}
 <div id="post-{{ post.id }}" class="post-box">
     <div class="post-brief-inner">
-	<div id="post-title-{{ post.id }}" class="post-title-brief">
-		<a href="{{ post_url }}">{{ post.title }}</a>
-	</div><!-- /post-title-brief -->
+        <div id="post-title-{{ post.id }}" class="post-title-brief">
+            <a href="{{ post_url }}">{{ post.title }}</a>
+        </div><!-- /post-title-id -->
 
-{% include "blog/snippets/post_meta.xhtml" %}
+        {% include "blog/snippets/post_meta.xhtml" %}
 
-	<div id="post-summary-{{ post.id }}" class="post-body-brief">
-		{{ post.content|safe|truncatewords_html:300 }}
-        {% if post.content|wordcount > 300 %}
-            (<a href="{{ post_url }}" class="readmore">Read More</a>)
-        {% endif %}
-        </div> <!-- /post-body-brief -->
+        <div id="post-summary-{{ post.id }}" class="post-body-brief">
+            {{ post.content|safe|truncatewords_html:300 }}
+            {% if post.content|wordcount > 300 %}
+                (<a href="{{ post_url }}" class="readmore">Read More</a>)
+            {% endif %}
+        </div> <!-- /post-summary-id -->
 
         <div id="post-footer-{{ post.id }}" class="post-footer-brief">
+
             {% if post.tags %}
-                <div id="post-{{ post.id }}-tags"></div>
-                    {% tags_for_object post as tags %}
-                    Tagged Under:
-                    {% for tag in tags %}
-                        <a href="{% url blog:tag-post-list tag.name %}">{{ tag.name }}</a>
-                    {% endfor %}
-                </div>
+            <div id="post-{{ post.id }}-tags">
+                {% tags_for_object post as tags %}
+                Tagged Under:
+                {% for tag in tags %}
+                    <a href="{% url blog:tag-post-list tag.name %}">{{ tag.name }}</a>
+                {% endfor %}
+            </div><!-- /post-id-tags -->
             {% endif %}
-            <div id="post-{{ post.id }}-comment-summary"><em>Comments Not Enabled</em></div>
-        </div> <!-- /post-footer-brief -->
+
+            <div id="post-{{ post.id }}-comment-summary">
+                <em>Comments Not Enabled</em>
+            </div> <!-- /post-id-comment-summary -->
+        </div> <!-- /post-footer-id -->
     </div> <!-- /post-brief-inner -->
-</div> <!-- /post-brief -->
+</div> <!-- /post-id -->
