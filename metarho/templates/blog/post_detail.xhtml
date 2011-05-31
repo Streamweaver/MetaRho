@@ -29,7 +29,7 @@
 
         // The following are highly recommended additional parameters. Remove the slashes in front to use.
         var disqus_identifier = 'fwtd_{{ post.pub_date.year }}_{{ post.pub_date|date:"b" }}_{{ post.pub_date.day }}_{{ post.slug }}';
-        var disqus_url = 'http://www.flagonwiththedragon.com{{ post_url }}';
+        var disqus_url = 'http://www.flagonwiththedragon.com{% url blog:post-detail post.pub_date.year post.pub_date|date:"b" post.pub_date.day post.slug %}';
 
         /* * * DON'T EDIT BELOW THIS LINE * * */
         (function() {
