@@ -28,8 +28,9 @@
             {% endif %}
 
             <div id="post-{{ post.id }}-comment-summary">
-                <em>Comments Not Enabled</em>
+                Comments: <a href="{{ post_url }}#disqus_thread" data-disqus-identifier="fwtd_{{ post.pub_date.year }}_{{ post.pub_date|date:"b" }}_{{ post.pub_date.day }}_{{ post.slug }}">Link to Comments</a>
             </div> <!-- /post-id-comment-summary -->
         </div> <!-- /post-footer-id -->
     </div> <!-- /post-brief-inner -->
 </div> <!-- /post-id -->
+
