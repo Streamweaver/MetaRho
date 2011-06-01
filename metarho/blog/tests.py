@@ -214,7 +214,7 @@ class ViewTest(TestCase):
         expected = {'P': 200, 'U': 404}
         posts = Post.objects.all()
         for post in posts:
-            attrs = [post.pub_date.year, date.strftime(post.pub_date, '%b'), post.pub_date.day, post.slug]
+            attrs = [post.pub_date.year, date.strftime(post.pub_date, '%m'), post.pub_date.day, post.slug]
             url = reverse('blog:post-detail', args=attrs)
             code = self.client.get(url).status_code
             self.failUnlessEqual(expected[post.status], code, 'Expected %s but returned %s for %s' % (expected[post.status], code, url))
@@ -254,7 +254,7 @@ class ViewTest(TestCase):
         posts = Post.objects.published()
         for post in posts:
             expected = 200
-            url = reverse('blog:list-month', args=[post.pub_date.year, date.strftime(post.pub_date, '%b')])
+            url = reverse('blog:list-month', args=[post.pub_date.year, date.strftime(post.pub_date, '%m')])
             code = self.client.get(url).status_code
             self.failUnlessEqual(expected, code, 'Expected %s but returned %s for %s' % (expected, code, url))
             # Test Feed
@@ -264,14 +264,14 @@ class ViewTest(TestCase):
 
     def test_post_day(self):
         '''Tests the return for a post day list.'''
-        attrs = ['2009', 'Apr', '08']
+        attrs = ['2009', '04', '08']
         url = reverse('blog:list-day', args=attrs)
         expected = 200
         code = self.client.get(url).status_code
         self.failUnlessEqual(code, expected, 'Expected %s but returned %s for %s' % (expected, code, url))
         
         # Test an unpublished one.
-        attrs = ['2010', 'Mar', '23']
+        attrs = ['2010', '03', '23']
         url = reverse('blog:list-day', args=attrs)
         expected = 1 # There are 2 but 1 is unpublished.
         response = self.client.get(url)

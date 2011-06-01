@@ -53,7 +53,7 @@ def post_all(request):
             'post_list': posts,
             })
 
-def post_year(request, year):
+def post_year_alt(request, year):
     """Returns all posts for a particular year."""
     tt = time.strptime('-'.join([year]), '%Y')
     date = datetime.date(*tt[:3])
@@ -64,7 +64,17 @@ def post_year(request, year):
             'title': 'Posts for %s' % date.strftime("%Y"),                                     
             })
 
-def post_month(request, year, month):
+def post_year(request, year):
+    """Returns all posts for a particular year."""
+    date = datetime.date(int(year), 1, 1)
+    posts = Post.objects.published().filter(pub_date__year=date.year)
+
+    return render(request, 'blog/post_list.xhtml', {
+            'post_list': posts,
+            'title': 'Posts for %s' % date.strftime("%Y"),
+            })
+
+def post_month_alt(request, year, month):
     """Returns all posts for a particular month."""
     tt = time.strptime('-'.join([year, month]), '%Y-%b')
     date = datetime.date(*tt[:3])
@@ -76,7 +86,18 @@ def post_month(request, year, month):
             'title': 'Posts for %s' % date.strftime("%B %Y"),                                     
             })
 
-def post_day(request, year, month, day):
+def post_month(request, year, month):
+    """Returns all posts for a particular month."""
+    date = datetime.date(int(year), int(month), 1)
+    posts = Post.objects.published().filter(pub_date__year=date.year,
+                            pub_date__month=date.month)
+
+    return render(request, 'blog/post_list.xhtml', {
+            'post_list': posts,
+            'title': 'Posts for %s' % date.strftime("%B %Y"),
+            })
+
+def post_day_alt(request, year, month, day):
     """Returns all posts for a particular day."""
     tt = time.strptime('-'.join([year, month, day]), '%Y-%b-%d')
     date = datetime.date(*tt[:3])
@@ -88,9 +109,28 @@ def post_day(request, year, month, day):
             'title': 'Posts for %s' % date.strftime("%A, %d %B %Y"),                                     
             })
 
+def post_day(request, year, month, day):
+    """Returns all posts for a particular day."""
+    date = datetime.date(int(year), int(month), int(day))
+    posts = Post.objects.published().filter(pub_date__year=date.year,
+                            pub_date__month=date.month, pub_date__day=date.day)
+
+    return render(request, 'blog/post_list.xhtml', {
+            'post_list': posts,
+            'title': 'Posts for %s' % date.strftime("%A, %d %B %Y"),
+            })
+
 # Detail Views
-def post_detail(request, year, month, day, slug):
-    """Returns an individual post."""
+def post_detail_alt(request, year, month, day, slug):
+    """
+    Returns an individual post. Alternate arguments for compatability with temporary URL pattern
+
+    :param request:  Request object.
+    :param year: 4 digit year of the pub_date
+    :param month: 3 character month abbreviation.
+    :param day: 1 or 2 digit day of the month.
+    
+    """
     tt = time.strptime('-'.join([year, month, day]), '%Y-%b-%d')
     date = datetime.date(*tt[:3])
     try:
@@ -103,6 +143,22 @@ def post_detail(request, year, month, day, slug):
             'post': post,
             'title': post.title,                                     
             })
+
+# Test conversion to number based dates
+def post_detail(request, year, month, day, slug):
+    """Returns an individual post."""
+    date = datetime.date(int(year), int(month), int(day))
+    try:
+        post = Post.objects.published().get(slug=slug, pub_date__year=date.year,
+                            pub_date__month=date.month, pub_date__day=date.day)
+    except Post.DoesNotExist:
+        raise Http404
+
+    return render(request, 'blog/post_detail.xhtml', {
+            'post': post,
+            'title': post.title,
+            })
+
 
 # Post Admin views
 @login_required

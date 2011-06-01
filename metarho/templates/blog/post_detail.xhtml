@@ -2,7 +2,7 @@
 
 {% load site_tags %}
 
-{% url blog:post-detail post.pub_date.year post.pub_date|date:"b" post.pub_date.day post.slug as post_url %}
+{% url blog:post-detail post.pub_date.year post.pub_date|date:"m" post.pub_date|date:"d" post.slug as post_url %}
 
 {% block page-subtitle %} - {{ post.title }}{% endblock %}
 
@@ -28,8 +28,8 @@
         var disqus_shortname = 'flagonwiththedragon'; // required: replace example with your forum shortname
 
         // The following are highly recommended additional parameters. Remove the slashes in front to use.
-        var disqus_identifier = 'fwtd_{{ post.pub_date.year }}_{{ post.pub_date|date:"b" }}_{{ post.pub_date.day }}_{{ post.slug }}';
-        var disqus_url = 'http://www.flagonwiththedragon.com{% url blog:post-detail post.pub_date.year post.pub_date|date:"b" post.pub_date.day post.slug %}';
+        var disqus_identifier = 'fwtd_{{ post.pub_date.year }}_{{ post.pub_date|date:"m" }}_{{ post.pub_date|date:"d" }}_{{ post.slug }}';
+        var disqus_url = 'http://www.flagonwiththedragon.com{% url blog:post-detail post.pub_date.year post.pub_date|date:"m" post.pub_date|date:"d" post.slug %}';
 
         /* * * DON'T EDIT BELOW THIS LINE * * */
         (function() {

@@ -15,6 +15,7 @@
 # limitations under the License.
 
 from datetime import datetime
+from datetime import date
 
 from django.db import models
 from django.contrib.auth.models import User
@@ -80,7 +81,7 @@ class Post(models.Model):
     @models.permalink
     def get_absolute_url(self):
         '''Get projects url.'''
-        return reverse('blog:post-detail', args=[self.pub_date.year, self.pud_date.month, self.pub_date.day, self.slug])
+        return reverse('blog:post-detail', args=[self.pub_date.year, date.strftime(self.pub_date, '%m'), date.strftime(self.pub_date, '%d'), self.slug])
 
     def __unicode__(self):
         return self.title

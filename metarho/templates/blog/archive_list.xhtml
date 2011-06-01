@@ -5,7 +5,7 @@
 {% block content-body %}
     <ul>
     {% for date in dates %}
-        <li><a href="{% url blog:list-month date|date:"Y" date|date:"M" %}" title="Archive for {{ date|date:"F" }} {{ date|date:"Y" }}">
+        <li><a href="{% url blog:list-month date|date:"Y" date|date:"m" %}" title="Archive for {{ date|date:"F" }} {{ date|date:"Y" }}">
                 {{ date|date:"F" }} {{ date|date:"Y" }}</a></li>
     {% empty %}
         <li>No Archived Posts</li>

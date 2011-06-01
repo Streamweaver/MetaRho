@@ -35,7 +35,7 @@ def wp_post_redirect(view_fn):
             try:
                 post = Post.objects.published().get(postmeta__key='wp_post_id', 
                                                     postmeta__value=wp_query)
-                ar = post.pub_date.strftime("%Y/%b/%d").split('/')
+                ar = post.pub_date.strftime("%Y/%m/%d").split('/')
                 ar.append(post.slug)
                 htr = HttpResponseRedirect(reverse('blog:post-detail', args=ar))
                 htr.status_code = 301 # This should reflect a 'Moved Permanently' code.

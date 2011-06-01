@@ -7,7 +7,7 @@ Creates a block listing months with published posts.
     <h2>Archive</h2>
     <ul>
         {% for date in dates %}
-            <li><a href="{% url blog:list-month date|date:"Y" date|date:"M" %}" title="Archive for {{ date|date:"F" }} {{ date|date:"Y" }}">
+            <li><a href="{% url blog:list-month date|date:"Y" date|date:"d" %}" title="Archive for {{ date|date:"F" }} {{ date|date:"Y" }}">
                     {{ date|date:"F" }} {{ date|date:"Y" }}</a></li>
         {% empty %}
             No Arhived Posts.
