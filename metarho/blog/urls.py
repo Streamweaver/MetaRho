@@ -16,9 +16,7 @@
 
 from django.conf.urls.defaults import *
 
-from tagging.views import tagged_object_list
-
-from metarho.blog.models import Post
+from metarho.blog.feeds import LatestPostsFeedAtom
 
 urlpatterns = patterns('metarho.blog.views',
     url(r'^(?P<year>\d{4})/(?P<month>\w{3})/(?P<day>\d{1,2})/(?P<slug>[0-9A-Za-z-]+)/$', 'post_detail', name='post-detail'),  
@@ -31,5 +29,6 @@ urlpatterns = patterns('metarho.blog.views',
     url(r'^delete/(?P<id>[0-9]+)/$', 'post_delete', name='post-delete'),
     url(r'^tag/$', 'tag_list', name='tag-list'),
     url(r'^tag/(?P<tagname>[^/]+)/$', 'post_list_bytag', name='tag-post-list'),
+    url(r'^feed/$', LatestPostsFeedAtom(), name='feed'),
     url(r'^/$', 'post_all', name='index'),
 )

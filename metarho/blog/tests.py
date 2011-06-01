@@ -275,7 +275,7 @@ class ViewTest(TestCase):
         url = reverse('blog:list-day', args=attrs)
         expected = 1 # There are 2 but 1 is unpublished.
         response = self.client.get(url)
-        posts = len(response.context['posts'])
+        posts = len(response.context['post_list'])
         self.failUnlessEqual(posts, expected, 'Expected %s posts but returned %s for %s' % (expected, posts, url))
 
 # Removing until I reintegrate tagging and topics.

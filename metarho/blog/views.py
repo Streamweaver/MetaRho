@@ -29,27 +29,21 @@ from tagging.models import Tag
 from tagging.models import TaggedItem
 
 from metarho import PUBLISHED_STATUS
-from metarho import PUB_STATUS
-from metarho import unique_slugify
 from metarho.blog.decorators import wp_post_redirect
 from metarho.decorators import format_req
 from metarho.blog.models import Post
-from metarho.blog.feeds import PostsFeedAtom
-from metarho.blog.feeds import feed_render
+from metarho.blog.feeds import LatestPostsFeedAtom
 from metarho.blog.forms import PostForm
 from metarho.blog.forms import ConfirmForm
 
-# All Posts List Methods.
-def post_all_feed(request):
-    """Returns a Feed for all posts"""
-
-    feed = PostsFeedAtom('myslug', request)
-    feed.items = Post.objects.published().order_by('-pub_date')
-
-    return feed_render(feed)
+def post_latest_feed(request):
+    """
+    Returns the latest posts feed.
+    """
+    return HttpResponseRedirect(reverse('blog:feed'))
 
 @wp_post_redirect
-@format_req('rss', post_all_feed)
+@format_req("rss", post_latest_feed)
 def post_all(request):
     """Returns all User Blogs"""
     posts = Post.objects.published()
@@ -63,20 +57,6 @@ def post_all(request):
             'alt_links': alt_links,
             })
 
-def post_year_feed(request, year):
-    """Returns a Feed for particular year."""
-
-    feed = PostsFeedAtom('myslug', request)
-    feed.link = reverse('blog:list-year', args=[year])
-
-    # Get the actual Items
-    tt = time.strptime('-'.join([year]), '%Y')
-    date = datetime.date(*tt[:3])
-    feed.items = Post.objects.published().filter(pub_date__year=date.year).order_by('-pub_date')
-
-    return feed_render(feed)
-
-@format_req('rss', post_year_feed)
 def post_year(request, year):
     """Returns all posts for a particular year."""
     tt = time.strptime('-'.join([year]), '%Y')
@@ -88,19 +68,6 @@ def post_year(request, year):
             'title': 'Posts for %s' % date.strftime("%Y"),                                     
             })
 
-
-def post_month_feed(request, year, month):
-    """Returns an atom feed for the month."""
-    feed = PostsFeedAtom('myslug', request)
-
-    tt = time.strptime('-'.join([year, month]), '%Y-%b')
-    date = datetime.date(*tt[:3])
-    feed.items = Post.objects.published().filter(pub_date__year=date.year,
-                            pub_date__month=date.month)
-
-    return feed_render(feed)
-
-@format_req('rss', post_month_feed)
 def post_month(request, year, month):
     """Returns all posts for a particular month."""
     tt = time.strptime('-'.join([year, month]), '%Y-%b')
@@ -113,19 +80,6 @@ def post_month(request, year, month):
             'title': 'Posts for %s' % date.strftime("%B %Y"),                                     
             })
 
-def post_day_feed(request, year, month, day):
-    """Produces a feed for the post daily list."""
-
-    feed = PostsFeedAtom('myslug', request)
-
-    tt = time.strptime('-'.join([year, month, day]), '%Y-%b-%d')
-    date = datetime.date(*tt[:3])
-    feed.items = Post.objects.published().filter(pub_date__year=date.year,
-                            pub_date__month=date.month, pub_date__day=date.day)
-
-    return feed_render(feed)
-
-@format_req('rss', post_day_feed)
 def post_day(request, year, month, day):
     """Returns all posts for a particular day."""
     tt = time.strptime('-'.join([year, month, day]), '%Y-%b-%d')
