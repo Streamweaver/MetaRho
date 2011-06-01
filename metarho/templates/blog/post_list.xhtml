@@ -1,4 +1,5 @@
 {% extends "blog/base.xhtml" %}
+{% load pagination_tags %}
 
 {% block scripts %}
     {{ block.super }}
@@ -42,10 +43,11 @@
 
 {% block content-body %}
 	{% if post_list %}
+        {% autopaginate post_list %}
 	    {% for post in post_list %}
 	    	{% include "blog/snippets/post_brief.xhtml" %}
 	    {% endfor %}
-	
+	    {% paginate %}
 	{% else %}
 	    <div class="summary warning">No Posts were found.</div>
 	{% endif %}

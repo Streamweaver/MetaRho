@@ -13,6 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 from os import path
 
@@ -81,12 +82,17 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.load_template_source',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = TEMPLATE_CONTEXT_PROCESSORS + (
+    "django.core.context_processors.request",
+)
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'pagination.middleware.PaginationMiddleware',
 )
 
 ROOT_URLCONF = 'metarho.urls'
@@ -111,11 +117,24 @@ INSTALLED_APPS = (
     'metarho.blog',
     'south', # Depends on south migrations for managing schemas.
     'tagging', # Comment out if not using Django Tagging.
+    'pagination',
 )
 
 # Set to TRUE to including tagging in posts.
 ENABLE_POST_TAGS = True
 FORCE_LOWERCASE_TAGS = True # Override setting in tagging module.
+
+# Django Pagination Settings
+#PAGINATION_DEFAULT_PAGINATION
+#The default amount of items to show on a page if no number is specified.
+#PAGINATION_DEFAULT_WINDOW
+#The number of items to the left and to the right of the current page to display (accounting for ellipses).
+#PAGINATION_DEFAULT_ORPHANS
+#The number of orphans allowed. According to the Django documentation, orphans are defined as:
+#
+#The minimum number of items allowed on the last page, defaults to zero.
+#PAGINATION_INVALID_PAGE_RAISES_404
+#Determines whether an invalid page raises an Http404 or just sets the invalid_page context variable.  True does the former and False does the latter.
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
