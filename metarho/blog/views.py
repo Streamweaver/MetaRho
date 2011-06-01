@@ -47,14 +47,10 @@ def post_latest_feed(request):
 def post_all(request):
     """Returns all User Blogs"""
     posts = Post.objects.published()
-    alt_links = [
-    {'type': 'application/atom+xml', 'title': 'Atom Feed', 'href': '%s?format=rss' % reverse('blog:index')}
-    ]
-    
+
     return render(request, 'blog/post_list.xhtml', {
             'title': 'All Posts',                                                
             'post_list': posts,
-            'alt_links': alt_links,
             })
 
 def post_year(request, year):

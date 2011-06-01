@@ -94,7 +94,7 @@ class LatestPostsFeedRss(Feed):
         """
         Returns a list of items to publish in this feed.
         """
-        return Post.objects.all()[:10]
+        return Post.objects.published()[:10]
 
     def item_title(self, item):
         """

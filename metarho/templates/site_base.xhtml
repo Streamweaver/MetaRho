@@ -10,6 +10,7 @@
   {% block page-head %}
     {% comment %}Put Extra Header information here.  Use block.super to keep the icon.{% endcomment %}
   	<link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico" type="image/x-icon" />
+    <link rel="alternate" type="application/atom+xml" title="Latests Blog Posts" href="{% url blog:feed %}" />
         {% if alt_links %}
             {% for link in alt_links %}
             <link rel="alternate" type="{{ link.type }}" title="{{ link.title }}" href="{{ link.href }}" />
@@ -64,7 +65,7 @@
     </div> <!-- /#skip-to -->
 
     <div id="header">
-        <a href="{% url site-index %}?format=rss"  id="header-feedlink">Atom Feed</a>
+        <a href="{% url blog:feed %}"  id="header-feedlink">Atom Feed</a>
     	<div id="header-inner">
     	    <h1>Flagon <em>with the</em> Dragon</h1>
     	</div> <!-- /#header-inner -->
