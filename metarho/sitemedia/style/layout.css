@@ -98,7 +98,7 @@ h1.title {
 
 #navbar ul li a:hover
 {
-    background-color: #369;
+    background-color: #993300;
     color: #fff;
 }
 
@@ -178,3 +178,44 @@ a.tag-7 { font-size: 1.5em; font-weight: 700; }
 a.tag-8 { font-size: 1.6em; font-weight: 800; }
 a.tag-9 { font-size: 1.7em; font-weight: 900; }
 a.tag-10 { font-size: 1.8em; font-weight: 900; }
+
+/*
+Pagination Style Copied from:
+Plugin Name: WP-Digg Style Paginator
+Plugin URI: http://www.mis-algoritmos.com/2007/09/09/wp-digg-style-pagination-plugin-v-10/
+Author: Victor De la Rocha
+Author URI: http://www.mis-algoritmos.com
+*/
+/*512megas.com */
+	div.pagination {
+		padding: 3px;
+		margin: 3px;
+		text-align:center;
+        background-color: #141212;
+	}
+
+	div.pagination a {
+		border: 1px solid #dedfde;
+		margin-right:3px;
+		padding:2px 6px;
+		background-position:bottom;
+		text-decoration: none;
+		color: #99210B;
+	}
+	div.pagination a:hover, div.pagination a:active {
+		border: 1px solid #000;
+		background-image:none;
+		background-color:#777777;
+		color: #fff;
+	}
+	div.pagination span.current {
+		margin-right:3px;
+		padding:2px 6px;
+		font-weight: bold;
+		color: #99210B;
+	}
+	div.pagination span.disabled {
+		margin-right:3px;
+		padding:2px 6px;
+		color: #adaaad;
+	}

@@ -125,16 +125,19 @@ ENABLE_POST_TAGS = True
 FORCE_LOWERCASE_TAGS = True # Override setting in tagging module.
 
 # Django Pagination Settings
-#PAGINATION_DEFAULT_PAGINATION
-#The default amount of items to show on a page if no number is specified.
-#PAGINATION_DEFAULT_WINDOW
-#The number of items to the left and to the right of the current page to display (accounting for ellipses).
-#PAGINATION_DEFAULT_ORPHANS
-#The number of orphans allowed. According to the Django documentation, orphans are defined as:
-#
-#The minimum number of items allowed on the last page, defaults to zero.
-#PAGINATION_INVALID_PAGE_RAISES_404
-#Determines whether an invalid page raises an Http404 or just sets the invalid_page context variable.  True does the former and False does the latter.
+# PAGINATION_DEFAULT_PAGINATION = 1
+# The default amount of items to show on a page if no number is specified.
+
+#PAGINATION_DEFAULT_WINDOW = 3
+# The number of items to the left and to the right of the current page to display (accounting for ellipses).
+
+#PAGINATION_DEFAULT_ORPHANS = 0
+# The number of orphans allowed. According to the Django documentation, orphans are defined as:
+# The minimum number of items allowed on the last page, defaults to zero.
+
+PAGINATION_INVALID_PAGE_RAISES_404 = True
+# Determines whether an invalid page raises an Http404 or just sets the invalid_page context variable.
+# True does the former and False does the latter.
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
