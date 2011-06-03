@@ -12,5 +12,6 @@
     {%  if user.is_authenticated %}
         <li><a href="{% url blog:post-create %}">New Post</a></li>
     {%  endif %}
+    <li><a href="{% url blog:switch-mobile %}">Mobile View</a></li>
 
 {% endblock %}

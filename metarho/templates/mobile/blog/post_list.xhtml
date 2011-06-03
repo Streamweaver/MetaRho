@@ -1,0 +1,16 @@
+{% extends "mobile/blog/base.xhtml" %}
+{% load pagination_tags %}
+
+{% block content-title %}{{ title|safe }}{% endblock %}
+
+{% block content-body %}
+	{% if post_list %}
+        {% autopaginate post_list %}
+	    {% for post in post_list %}
+	    	{% include "mobile/blog/snippets/post_brief.xhtml" %}
+	    {% endfor %}
+	    {% paginate %}
+	{% else %}
+	    <div class="summary warning">No Posts were found.</div>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "mobile/blog/base.xhtml" %}
+
+{% url blog:post-detail post.pub_date.year post.pub_date|date:"m" post.pub_date|date:"d" post.slug as post_url %}
+
+{% block page-subtitle %} - {{ post.title }}{% endblock %}
+
+{% block content-title %}{{ post.title }}{% endblock %}
+
+{% block content-body %}
+    <div id="post-detail" class="post-box">
+        {% include "blog/snippets/post_meta.xhtml" %}
+        <div id="post-content">
+            {{ post.content|safe }}
+        </div>
+    </div>
+{% endblock %}

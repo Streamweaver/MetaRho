@@ -102,7 +102,10 @@
                 <div id="content-inner">
                     <a name="content"></a>
 
-                    {% block message %}{% endblock %}
+                    {% block message %}{{ flavour }}{% endblock %}
+                    {% if alert %}
+                    <div id="alert">{{ alert }}</div>
+                    {% endif %}
 
                     <div id="content-header">
                          {% block content-header  %}

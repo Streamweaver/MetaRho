@@ -35,5 +35,6 @@ urlpatterns = patterns('metarho.blog.views',
     url(r'^tag/$', 'tag_list', name='tag-list'),
     url(r'^tag/(?P<tagname>[^/]+)/$', 'post_list_bytag', name='tag-post-list'),
     url(r'^feed/$', LatestPostsFeedAtom(), name='feed'),
+    url(r'^switchmobile/$', 'mobile_switcher', name='switch-mobile'),
     url(r'^/$', 'post_all', name='index'),
 )

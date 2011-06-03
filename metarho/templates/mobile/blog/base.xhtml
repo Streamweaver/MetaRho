@@ -1,0 +1,8 @@
+{% extends "mobile/mobile_base.xhtml" %}
+
+{% block navlinks %}
+    {{ block.super }}
+    {%  if user.is_authenticated %}
+        <li><a href="{% url blog:post-create %}">New Post</a></li>
+    {%  endif %}
+{% endblock %}

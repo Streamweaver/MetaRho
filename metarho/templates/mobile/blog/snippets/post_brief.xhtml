@@ -1,0 +1,11 @@
+{% load tagging_tags %}
+{% url blog:post-detail post.pub_date.year post.pub_date|date:"m" post.pub_date|date:"d" post.slug as post_url %}
+<div id="post-{{ post.id }}" class="post-box">
+    <div class="post-brief-inner">
+        <div id="post-title-{{ post.id }}" class="post-title-brief">
+            <a href="{{ post_url }}">{{ post.title }}</a>
+        </div><!-- /post-title-id -->
+        {% include "blog/snippets/post_meta.xhtml" %}
+    </div> <!-- /post-brief-inner -->
+</div> <!-- /post-id -->
+

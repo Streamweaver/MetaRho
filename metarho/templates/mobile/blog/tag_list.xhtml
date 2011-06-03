@@ -1,0 +1,15 @@
+{% extends "mobile/blog/base.xhtml" %}
+
+{% block content-title %}{{ title|safe }}{% endblock %}
+
+{% block content-body %}
+	{% if tag_list %}
+        <ul>
+	    {% for tag in tag_list %}
+	    	<li><a href="{% url blog:tag-list %}">{{ tag.name }}</a> ({{ tag.count }} Post{{ tag.count|pluralize }})</li>
+	    {% endfor %}
+	    </ul>
+	{% else %}
+	    <div class="summary warning">No tags were found.</div>
+	{% endif %}
+{% endblock %}

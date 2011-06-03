@@ -77,13 +77,15 @@ STATICFILES_FINDERS = (
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
+    'django_mobile.loader.Loader', # From django-mobile
     'django.template.loaders.filesystem.load_template_source',
     'django.template.loaders.app_directories.load_template_source',
 #     'django.template.loaders.eggs.load_template_source',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = TEMPLATE_CONTEXT_PROCESSORS + (
-    "django.core.context_processors.request",
+    "django.core.context_processors.request", # Needed for django-pagination
+    "django_mobile.context_processors.flavour", # Part of django-mobile
 )
 
 MIDDLEWARE_CLASSES = (
@@ -92,7 +94,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'pagination.middleware.PaginationMiddleware',
+    'pagination.middleware.PaginationMiddleware', # From django-pagination
+    'django_mobile.middleware.MobileDetectionMiddleware', # From django-mobile
+    'django_mobile.middleware.SetFlavourMiddleware', # from django-mobile
 )
 
 ROOT_URLCONF = 'metarho.urls'
@@ -117,7 +121,8 @@ INSTALLED_APPS = (
     'metarho.blog',
     'south', # Depends on south migrations for managing schemas.
     'tagging', # Comment out if not using Django Tagging.
-    'pagination',
+    'pagination', # Template object pagination.
+    'django_mobile', # Mobile Template Middleware.
 )
 
 # Set to TRUE to including tagging in posts.

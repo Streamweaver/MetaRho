@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>{% block page-title %}Flagon with the Dragon {% block page-subtitle %} - Home{% endblock %}{% endblock %}</title>
+    {% block page-head %}
+    {% comment %}Put Extra Header information here.  Use block.super to keep the icon.{% endcomment %}
+    <link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico" type="image/x-icon" />
+    <link rel="alternate" type="application/atom+xml" title="Latests Blog Posts" href="{% url blog:feed %}" />
+        {% if alt_links %}
+            {% for link in alt_links %}
+            <link rel="alternate" type="{{ link.type }}" title="{{ link.title }}" href="{{ link.href }}" />
+            {% endfor %}
+        {% endif %}
+    {% endblock %}
+    {% block style %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}style/mobile-style.css" />
+    {% endblock %}
+    {% block scripts %}
+    {% endblock %}
+    {% block google_analytics %}
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-16216162-1']);
+          _gaq.push(['_trackPageview']);
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+    {% endblock %}
+</head>
+<body>
+<div id="page">
+    <div id="header">Flagon <em>with the</em> Dragon</div>
+    <div id="navbar">
+        <ul>
+            {% block navlinks %}
+                <li><a href="{% url site-index %}">Home</a></li>
+                <li><a href="{% url blog:archive-list %}">Archive</a></li>
+                <li><a href="{% url blog:tag-list %}">Tags</a></li>
+            {% endblock %}
+        </ul>
+    </div>
+    {% if alert %}
+        <div id="alert">{{ alert }}</div>
+    {% endif %}
+    <div id="content">
+        <div id="content-header"><h1>{% block content-title %}{{ title }}{% endblock %}</h1></div>
+        <div id="content-body">{% block content-body %}{% if content %}{{ content }}{% endif %}{% endblock %}</div>
+        <div id="content-bottom">{% block content-bottom %}{% endblock %}</div>
+        {% if flavour %}
+        <div id="viewlinks"><a href="{% url blog:switch-mobile %}">Switch to Normal View</a></div>
+        {% endif %}
+    </div>
+    <div id="footer">
+        {% block footer %}
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a>
+        {% endblock %}
+    </div>
+</div>
+</body>
+</html>

@@ -35,6 +35,7 @@ from metarho.blog.models import Post
 from metarho.blog.feeds import LatestPostsFeedAtom
 from metarho.blog.forms import PostForm
 from metarho.blog.forms import ConfirmForm
+from metarho.settings import INSTALLED_APPS
 
 def post_latest_feed(request):
     """
@@ -252,3 +253,22 @@ def tag_list(request):
         'title': 'All Tags on Posts',
         'tag_list': tag_list,
     })
+
+from metarho.settings import INSTALLED_APPS
+if 'django_mobile' in INSTALLED_APPS:
+    from django_mobile import set_flavour
+    from django_mobile import get_flavour
+
+def mobile_switcher(request):
+        #next = request.GET['page']
+        try:
+            if get_flavour() == 'mobile':
+                set_flavour('full', request=request, permanent=True)
+            else:
+                set_flavour('mobile', request=request, permanent=True)
+            return HttpResponseRedirect(reverse('site-index'))
+        except ValueError:
+            return render(request, '404.html', {
+                'alert': '"%s" is not a valid display option for this site.' % flavor
+            })
+
