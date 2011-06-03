@@ -1,7 +1,7 @@
 body {
     font-family: arial, helvetica, sans-serif;
 	background: #555;
-	font-size:12px;
+	font-size: 1em;
 	line-height:1.5;
 	color: #333333;
 	margin:0;
@@ -10,7 +10,7 @@ h1, h2, h3, h4, h5 {
     margin: 0;
     padding: 0;
 }
-h1 {font-size:18px;}
+h1 {font-size:1.3em;}
 hr {display:none;}
 a {color:blue;}
 blockquote {
@@ -27,7 +27,7 @@ p, li {
 
 /* classes */
 .small {
-	font-size:10px;
+	font-size:.5em;
 	line-height:2;
 }
 .hide {
@@ -44,7 +44,7 @@ div.tags {
     padding-left: 5px;
 }
 .post-title-brief a {
-    font-size: 16px;
+    font-size: 1.3em;
     font-weight: bold;
     color: #C26413;
 }
@@ -59,7 +59,6 @@ div.tags {
 #content {
 	color: #333333;
     background: #ffffff;
-	font-size: 1em;
 	line-height: 1.5;
 	padding:10px;
 }
@@ -68,7 +67,7 @@ div.tags {
 }
 #header {
 	margin:0;
-    font-size: 18px;
+    font-size: 1.4em;
     font-weight: bold;
     background: black;
     padding: 5px 3px;
