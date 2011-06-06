@@ -62,12 +62,12 @@ class Post(models.Model):
     '''Blog Entries'''
 
     title = models.CharField(max_length=75)
-    slug = models.SlugField(max_length=75, null=True, blank=True, unique_for_date='pub_date')
+    slug = models.SlugField(max_length=75, blank=True, unique_for_date='pub_date')
     author = models.ForeignKey(User)
     content = models.TextField(null=True)
     teaser = models.TextField(null=True, blank=True)
     pd_help = 'Date to publish.'
-    pub_date = models.DateTimeField(help_text=pd_help, blank=True)
+    pub_date = models.DateTimeField(help_text=pd_help, blank=True, default=datetime.now())
     status = models.CharField(max_length=1, choices=PUB_STATUS)
     date_created = models.DateTimeField(null=False, blank=False, auto_now_add=True)
     date_modified = models.DateTimeField(null=False, blank=False, auto_now=True, auto_now_add=True)
@@ -95,8 +95,8 @@ class Post(models.Model):
         if self.status == PUBLISHED_STATUS and not self.pub_date:
             self.pub_date = datetime.now() # No publishing without a pub_date
             
-        # Create slug if none exists and it's published.
-        if not self.slug and self.status == PUBLISHED_STATUS:
+        # Create slug if none exists..
+        if not self.slug:
             qs = Post.objects.published().filter(pub_date__startswith=self.pub_date.date())
             # Slug should be unique for date.
             unique_slugify(self, self.title, queryset=qs)
