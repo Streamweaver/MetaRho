@@ -8,11 +8,98 @@
 #
 #   http://www.apache.org/licenses/LICENSE-2.0
 #
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
+# Unless required by applicable law or agreed to in writing, softwaretributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+import pyblog
+import re
+
+from django.contrib.auth.models import User
+
+from metarho.blog.models import Post
+
+import pprint
+
+site = 'http://localhost/fwtd/xmlrpc.php'
+user = 'admin'
+passwd = 'p33kab00'
+author = User.objects.get(pk=1)
+
+class WordpressImporter:
+
+    error_ids = []
+    success_ids = []
+
+    def __init__(self, url, user, pw, maxid, author):
+        """Initializes a new wp importer """
+        self.blog = pyblog.WordPress(url, user, pw)
+        self.id_range = range(1, maxid)
+        self.author = author
+
+    def import_all(self):
+        """Iterates overall posts in self.id_range and imports them."""
+        for id in self.id_range:
+            try:
+                post = self.blog.get_post(id)
+                self.import_post(post)
+                self.success_ids.append(id)
+            except pyblog.BlogError:
+                self.error_ids.append(id)
+        print "DONE! Imported %s and skipped %s" (len(self.success_ids), len(self.error_ids))
+
+    def import_post(self, wp_post):
+        # 'From Twitter 'in title
+        # 'LoudTwitter'
+        if re.search('From Twitter ', wp_post['title']):
+            return True
+        if re.search('LoudTwitter', wp_post['description']):
+            return True
+        post = Post()
+        post.title = "No Title Given"
+        if wp_post['title']:
+            post.title =  wp_post['title']
+        post.content = wp_post['description']
+        post.slug = wp_post['wp_slug']
+        post.pub_date = wp_post['dateCreated']
+        post.author = self.author
+        post.status = 'U'
+        if wp_post['post_status'] == 'publish':
+            post.status = 'P'
+        post.save() # Set date created/modified so I can change them.
+        post.date_created = wp_post['dateCreated']
+        post.save()
+
+#    {   'categories': ['Uncategorized'],
+#        'custom_fields': [   {   'id': '6821', 'key': 'lj_itemid', 'value': '3055'},
+#                             {   'id': '6822',
+#                                 'key': 'lj_permalink',
+#                                 'value': 'http://streamweaver.livejournal.com/782213.html'}],
+#        'dateCreated': <DateTime '20110512T02:33:00' at b71aa22c>,
+#        'date_created_gmt': <DateTime '20110512T02:33:00' at b71aa90c>,
+#        'description': '<div>\n<div class="loudtwitter"><ul><li><a href="http://twitter.com/Streamweaver/statuses/68430855705604096">17:42:42</a>: Corruption Twin Powers Activate!  Form of a Comcast Lobbyist!  <a href="http://bit.ly/kYG3Qb">http://bit.ly/kYG3Qb</a> Oh yea, this is gonna be awesome. :(\n</li></ul></div>\n</div><p>Tweets copied by <a href="http://twittinesis.com">twittinesis.com</a></p>',
+#        'link': 'http://localhost/fwtd/?p=3033',
+#        'mt_allow_comments': 1,
+#        'mt_allow_pings': 1,
+#        'mt_excerpt': '',
+#        'mt_keywords': '',
+#        'mt_text_more': '',
+#        'permaLink': 'http://localhost/fwtd/?p=3033',
+#        'post_status': 'publish',
+#        'postid': '3033',
+#        'title': 'From Twitter 05-11-2011',
+#        'userid': '1',
+#        'wp_author_display_name': 'admin',
+#        'wp_author_id': '1',
+#        'wp_password': '',
+#        'wp_post_format': 'standard',
+#        'wp_slug': 'from-twitter-05-11-2011'}
+
+importer = WordpressImporter(site, user, passwd, 30, author)
+importer.import_all()
+
+# Code below based on old xml file parser for wordpress.
 
 #import sys
 #from datetime import datetime
@@ -197,3 +284,4 @@
 #                    t = Tag.objects.get(slug=pc.attrib['nicename'])
 #                    tc = TaggedItem(content_object=post, tag=t)
 #                    tc.save()
+#

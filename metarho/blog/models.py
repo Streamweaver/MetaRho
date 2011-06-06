@@ -67,7 +67,7 @@ class Post(models.Model):
     content = models.TextField(null=True)
     teaser = models.TextField(null=True, blank=True)
     pd_help = 'Date to publish.'
-    pub_date = models.DateTimeField(help_text=pd_help, null=True, blank=True)
+    pub_date = models.DateTimeField(help_text=pd_help, blank=True)
     status = models.CharField(max_length=1, choices=PUB_STATUS)
     date_created = models.DateTimeField(null=False, blank=False, auto_now_add=True)
     date_modified = models.DateTimeField(null=False, blank=False, auto_now=True, auto_now_add=True)
@@ -106,7 +106,7 @@ class Post(models.Model):
         if self.slug: 
             p = Post.objects.exclude(pk=self.pk).filter(slug=self.slug)
             if self.pub_date:
-                p = p.filter(pub_date__startswith=self.pub_date.date())
+                p = p.filter(pub_date__startswith=datetime.date(self.pub_date.year, self.pub_date.month, self.pub_date.day))
             else:
                 p = p.filter(pub_date__isnull=True)
             # if slug isn't None and a match is found on that date, throw error.
