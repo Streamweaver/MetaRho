@@ -87,14 +87,7 @@ class PostTest(TestCase):
         
         post1 = Post(**p)
         post1.save()
-        
-        # Initially No Slug or pub_date should be assigned.
-        self.failUnlessEqual(post1.slug, None, 'Post1 slug was %s when it should be None' % post1.slug)
-        self.failUnless(not post1.pub_date, 'PubDate is not Null!')
 
-        # Publishing it should give it a slug and pub_date automatically.
-        post1.status = 'P'
-        post1.save()
         slugexp = 'test-title-1' 
         slugact = post1.slug
         self.failUnlessEqual(slugexp, slugact, 'Slug was %s but expected %s' % (slugact, slugact))

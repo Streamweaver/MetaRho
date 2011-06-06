@@ -56,7 +56,7 @@ class PostManager(models.Manager):
         '''
         if not pub_date:
             pub_date = datetime.now()
-        return self.filter(status=PUBLISHED_STATUS, pub_date__lte=pub_date, pub_date__isnull=False)
+        return self.filter(status=PUBLISHED_STATUS, pub_date__lte=pub_date)
     
 class Post(models.Model):
     '''Blog Entries'''
@@ -97,7 +97,7 @@ class Post(models.Model):
             
         # Create slug if none exists..
         if not self.slug:
-            qs = Post.objects.published().filter(pub_date__startswith=self.pub_date.date())
+            qs = Post.objects.all().filter(pub_date__startswith=self.pub_date.date)
             # Slug should be unique for date.
             unique_slugify(self, self.title, queryset=qs)
             
@@ -106,7 +106,7 @@ class Post(models.Model):
         if self.slug: 
             p = Post.objects.exclude(pk=self.pk).filter(slug=self.slug)
             if self.pub_date:
-                p = p.filter(pub_date__startswith=datetime.date(self.pub_date.year, self.pub_date.month, self.pub_date.day))
+                p = p.filter(pub_date__startswith=self.pub_date.date)
             else:
                 p = p.filter(pub_date__isnull=True)
             # if slug isn't None and a match is found on that date, throw error.

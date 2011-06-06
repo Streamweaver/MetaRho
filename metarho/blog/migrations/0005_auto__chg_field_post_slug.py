@@ -13,8 +13,9 @@ class Migration(SchemaMigration):
         
         # Changing field 'Post.slug'
         # first populate field.
-        for post in Post.objects.filter(slug__isnull=True):
-            post.slug = unique_slugify(post, post.title, filter=Post.objects.filter(pud_date__startswith=post.pub_date.date()))
+        for post in Post.objects.all().filter(models.Q(slug__isnull=True) | models.Q(slug='')):
+            post.slug = unique_slugify(post, post.title, queryset=Post.objects.filter(pub_date__startswith=post.pub_date.date))
+            post.save()
         db.alter_column('blog_post', 'slug', self.gf('django.db.models.fields.SlugField')(default='', max_length=75))
 
 
