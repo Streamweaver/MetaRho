@@ -6,12 +6,16 @@ Creates a block listing months with published posts.
     <div id="topic-block-inner" class="block-inner">
     <h2>Archive</h2>
     <ul>
-        {% for date in dates %}
+        {% for date in dates|slice:":5" %}
             <li><a href="{% url blog:list-month date|date:"Y" date|date:"d" %}" title="Archive for {{ date|date:"F" }} {{ date|date:"Y" }}">
                     {{ date|date:"F" }} {{ date|date:"Y" }}</a></li>
         {% empty %}
             No Arhived Posts.
         {% endfor %}
+
+        {% if dates.count > 5 %}
+            <li><a href="{% url blog:archive-list %}">Full Archive List >></a></li>
+        {% endif %}
     </ul>
     </div> <!-- /topic-block-inner -->
 </div> <!-- /topic-block -->

@@ -25,4 +25,4 @@ register = template.Library()
 def archive_list():
     '''Produces a list of months with published posts in them.'''
     dates = Post.objects.published().order_by('pub_date').dates('pub_date', 'month')
-    return {'dates': dates}
+    return {'dates': sorted(dates, reverse=True)}
