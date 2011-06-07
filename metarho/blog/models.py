@@ -67,7 +67,7 @@ class Post(models.Model):
     content = models.TextField(null=True)
     teaser = models.TextField(null=True, blank=True)
     pd_help = 'Date to publish.'
-    pub_date = models.DateTimeField(help_text=pd_help, blank=True, default=datetime.now())
+    pub_date = models.DateTimeField(help_text=pd_help, blank=True, default=datetime.now, db_index=True)
     status = models.CharField(max_length=1, choices=PUB_STATUS)
     date_created = models.DateTimeField(null=False, blank=False, auto_now_add=True)
     date_modified = models.DateTimeField(null=False, blank=False, auto_now=True, auto_now_add=True)
@@ -92,26 +92,18 @@ class Post(models.Model):
         
         '''
         # Set pub_date if none exist and publish is true.
-        if self.status == PUBLISHED_STATUS and not self.pub_date:
+        if not self.pub_date:
             self.pub_date = datetime.now() # No publishing without a pub_date
             
         # Create slug if none exists..
         if not self.slug:
-            qs = Post.objects.all().filter(pub_date__startswith=self.pub_date.date)
+            qs = Post.objects.all().filter(
+                pub_date__year=self.pub_date.year,
+                pub_date__month=self.pub_date.month,
+                pub_date__day=self.pub_date.day
+            )
             # Slug should be unique for date.
             unique_slugify(self, self.title, queryset=qs)
-            
-        # Validate unique slug by pub_date.  Unique_for_date only validates at
-        # the model form level.
-        if self.slug: 
-            p = Post.objects.exclude(pk=self.pk).filter(slug=self.slug)
-            if self.pub_date:
-                p = p.filter(pub_date__startswith=self.pub_date.date)
-            else:
-                p = p.filter(pub_date__isnull=True)
-            # if slug isn't None and a match is found on that date, throw error.
-            if p:
-                raise ValidationError("Slug must be unique for author and pub_date")
 
     def save(self, force_insert=False, force_update=False):
         '''

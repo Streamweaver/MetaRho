@@ -20,19 +20,28 @@ from django.core.management.base import BaseCommand
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 
-from metarho.blog.importer import WordPressExportParser
+from metarho.blog.importer import WordpressImporter
 
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
             make_option("-u", "--username", dest="username", default=None),
+            make_option("-s", "--site", dest="site", default=None),
+            make_option("-w", "--wordpressuser", dest="wordpressuser", default=None),
+            make_option("-p", "--wordpresspw", dest="wordpresspw", default=None),
+            make_option("-d", "--maxid", dest="maxid", default=None),
+            make_option("-n", "--minid", dest="minid", default=1),
         )
 
     def handle(self, *args, **options):
         # Throws an error if not a valid user.
-        user = self._get_user(options["username"]) 
-        for file in args:
-            wp = WordPressExportParser(file, user.username)
-            wp.parse()
+        user = self._get_user(options.get("username"))
+        site = options.get("site")
+        wp_user = options.get("wordpressuser")
+        wp_pass = options.get("wordpresspw")
+        max_id = options.get("maxid")
+        min_id = options.get("minid")
+        wp = WordpressImporter(site, wp_user, wp_pass, int(max_id), user, int(min_id))
+        wp.import_all()
         
     def _get_user(self, username):
         """

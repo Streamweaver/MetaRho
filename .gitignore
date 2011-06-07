@@ -19,6 +19,7 @@
 # Specific Files to ignore #
 ############################
 localsettings.py
+playspace.py
 Thumbs.db
 Icon?
 .DS_Store?
