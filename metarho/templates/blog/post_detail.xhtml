@@ -1,5 +1,5 @@
 {% extends "blog/base.xhtml" %}
-
+{% load tagging_tags %}
 {% load site_tags %}
 
 {% url blog:post-detail post.pub_date.year post.pub_date|date:"m" post.pub_date|date:"d" post.slug as post_url %}
@@ -17,13 +17,15 @@
         </div>
     </div>
     <div id="post-footer" class="post-footer">
-        <div id="post-{{ post.id }}-tags">
-            {% tags_for_object post as tags %}
-            Tagged Under:
-            {% for tag in tags %}
-                <a href="{% url blog:tag-post-list tag.name %}"><span property="dcterms:subject">{{ tag.name }}</span></a>
-            {% endfor %}
-        </div><!-- /post-id-tags -->
+        {% if post.tags %}
+            <div id="post-{{ post.id }}-tags">
+                {% tags_for_object post as tags %}
+                Tagged Under:
+                {% for tag in tags %}
+                    <a href="{% url blog:tag-post-list tag.name %}"><span property="dcterms:subject">{{ tag.name }}</span></a>
+                {% endfor %}
+            </div><!-- /post-id-tags -->
+        {% endif %}
         Comments:
         <div id="disqus_thread"></div>
     </div>
