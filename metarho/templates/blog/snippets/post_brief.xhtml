@@ -1,14 +1,14 @@
 {% load tagging_tags %}
 {% url blog:post-detail post.pub_date.year post.pub_date|date:"m" post.pub_date|date:"d" post.slug as post_url %}
-<div id="post-{{ post.id }}" class="post-box">
+<div id="post-{{ post.id }}" class="post-box" about="{{ post_url }}">
     <div class="post-brief-inner">
         <div id="post-title-{{ post.id }}" class="post-title-brief">
-            <a href="{{ post_url }}">{{ post.title }}</a>
+            <a href="{{ post_url }}" rel="bookmark"><span property="dcterms:title">{{ post.title }}</span></a>
         </div><!-- /post-title-id -->
 
         {% include "blog/snippets/post_meta.xhtml" %}
 
-        <div id="post-summary-{{ post.id }}" class="post-body-brief">
+        <div id="post-summary-{{ post.id }}" class="post-body-brief" property="dcterms:abstract">
             {{ post.content|safe|truncatewords_html:300 }}
             {% if post.content|wordcount > 300 %}
                 (<a href="{{ post_url }}" class="readmore">Read More</a>)
@@ -22,7 +22,7 @@
                 {% tags_for_object post as tags %}
                 Tagged Under:
                 {% for tag in tags %}
-                    <a href="{% url blog:tag-post-list tag.name %}">{{ tag.name }}</a>
+                    <a href="{% url blog:tag-post-list tag.name %}"><span property="dcterms:subject">{{ tag.name }}</span></a>
                 {% endfor %}
             </div><!-- /post-id-tags -->
             {% endif %}

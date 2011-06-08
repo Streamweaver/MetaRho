@@ -6,19 +6,26 @@
 
 {% block page-subtitle %} - {{ post.title }}{% endblock %}
 
-{% block content-title %}{{ post.title }}{% endblock %}
+{% block content-title %}<span property="dcterms:title">{{ post.title }}</span>{% endblock %}
 
 {% block content-body %}
 
     <div id="post-detail" class="post-box">
         {% include "blog/snippets/post_meta.xhtml" %}
-        <div id="post-content">
+        <div id="post-content" property="dcterms:description">
             {{ post.content|safe }}
         </div>
     </div>
     <div id="post-footer" class="post-footer">
-    Comments: 
-    <div id="disqus_thread"></div>
+        <div id="post-{{ post.id }}-tags">
+            {% tags_for_object post as tags %}
+            Tagged Under:
+            {% for tag in tags %}
+                <a href="{% url blog:tag-post-list tag.name %}"><span property="dcterms:subject">{{ tag.name }}</span></a>
+            {% endfor %}
+        </div><!-- /post-id-tags -->
+        Comments:
+        <div id="disqus_thread"></div>
     </div>
 
 
