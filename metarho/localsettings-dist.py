@@ -46,4 +46,8 @@ SECRET_KEY = ''
 # system time zone.
 TIME_ZONE = 'America/New_York'
 
+# Open Calais Seettings
+CALAIS_API_KEY = ''
+CALAIS_SUGGEST = True
+
 
