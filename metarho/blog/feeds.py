@@ -114,7 +114,7 @@ class LatestPostsFeedRss(Feed):
         """
         Takes an item, as returned by items(), and returns the item's URL.
         """
-        return reverse('blog:post-detail', args=[item.pub_date.year, item.pub_date.strftime('%b'), item.pub_date.day, item.slug])
+        return reverse('blog:post-detail', args=[item.pub_date.year, item.pub_date.strftime('%m'), item.pub_date.day, item.slug])
 
     def item_author_name(self, item):
         """

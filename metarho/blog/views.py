@@ -36,6 +36,7 @@ from metarho.blog.feeds import LatestPostsFeedAtom
 from metarho.blog.forms import PostForm
 from metarho.blog.forms import ConfirmForm
 from metarho.settings import INSTALLED_APPS
+from metarho.blog.calais import CalaisSuggest
 
 def post_latest_feed(request):
     """
@@ -172,6 +173,7 @@ def post_edit(request, id=None):
         
        """
     instance = None
+
     if id:
         instance = get_object_or_404(Post, id=id)
 
@@ -181,7 +183,10 @@ def post_edit(request, id=None):
 
     # Create the form as needed.
     form = PostForm(request.POST or None, instance=instance)
-
+    calais = None
+    if form.instance:
+        calais = CalaisSuggest(form.instance.content)
+    
     # Save the edited form if needed
     if request.method == 'POST' and form.is_valid():
         tmp_form = form.save(commit=False)
@@ -197,6 +202,7 @@ def post_edit(request, id=None):
     return render(request, 'blog/post_edit.xhtml', {
         'title': title,
         'form': form,
+        'calais': calais,
     })
 
 @login_required

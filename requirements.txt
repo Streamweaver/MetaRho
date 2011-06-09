@@ -3,3 +3,4 @@ south==0.7.3
 django-tagging==0.3.1
 django-pagination>=1.0.7
 django-mobile==0.2.0
+httplib2

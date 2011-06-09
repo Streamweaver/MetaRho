@@ -30,8 +30,20 @@
             <div class="fieldWrapper">
                 {{ field.errors }}
                 {{ field.label_tag }} {{ field }}
+                {% if field.html_name == "tags"%}
+                    {% if calais.tags %}
+                        <div><strong>Calais Tags:</strong> {{ calais.entities|join:", " }}</div>
+                    {% endif %}
+                    {% if calais.entities %}
+                        <div><strong>Calais Entities:</strong> {{ calais.entities|join:", " }}</div>
+                    {% endif %}
+                    {% if calais.topics %}
+                        <div><strong>Calais Topics:</strong> {{ calais.topics|join:", " }}</div>
+                    {% endif %}
+                {% endif %}
             </div>
         {%  endfor %}
     <input type="submit" />
     </form>
+    {{ ct }}
 {%  endblock %}

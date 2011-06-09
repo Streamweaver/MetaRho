@@ -109,10 +109,9 @@ class PostTest(TestCase):
         slug = 'test-title-1' 
         self.failUnlessEqual(slug, post2.slug, 'Post2 slug was %s but expected %s' % (post2.slug, slug))
  
-        # Now change the pub_date to match p1 and see if it throws a validation error.
+        # Set date on post 2 to the same to test unique slugify feature
         post2.pub_date = datetime.now() - timedelta(days=1) - timedelta(hours=1)
-        self.assertRaises(ValidationError, post2.save)
-        
+
         # Test the auto-increment feature of the unique_slugify method.
         post2.slug = None
         post2.save()
