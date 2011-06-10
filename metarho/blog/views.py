@@ -183,9 +183,6 @@ def post_edit(request, id=None):
 
     # Create the form as needed.
     form = PostForm(request.POST or None, instance=instance)
-    calais = None
-    if form.instance:
-        calais = CalaisSuggest(form.instance.content)
     
     # Save the edited form if needed
     if request.method == 'POST' and form.is_valid():
@@ -202,7 +199,6 @@ def post_edit(request, id=None):
     return render(request, 'blog/post_edit.xhtml', {
         'title': title,
         'form': form,
-        'calais': calais,
     })
 
 @login_required
