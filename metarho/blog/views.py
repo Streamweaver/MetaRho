@@ -36,7 +36,6 @@ from metarho.blog.feeds import LatestPostsFeedAtom
 from metarho.blog.forms import PostForm
 from metarho.blog.forms import ConfirmForm
 from metarho.settings import INSTALLED_APPS
-from metarho.blog.calais import CalaisSuggest
 
 def post_latest_feed(request):
     """
