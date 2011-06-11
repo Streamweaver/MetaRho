@@ -43,8 +43,10 @@ def post_latest_feed(request):
     """
     return HttpResponseRedirect(reverse('blog:feed'))
 
+# Dectorators allow some compatability with previous wordpress querystring URLs
 @wp_post_redirect
 @format_req("rss", post_latest_feed)
+@format_req("rss2", post_latest_feed)
 def post_all(request):
     """Returns all User Blogs"""
     posts = Post.objects.published()
