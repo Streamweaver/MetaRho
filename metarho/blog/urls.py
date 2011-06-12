@@ -20,9 +20,9 @@ from metarho.blog.feeds import LatestPostsFeedAtom
 
 urlpatterns = patterns('metarho.blog.views',
     # Alt links are from a previous pattern I used for a bit using 3 char month abbreviation.
-    url(r'^(?P<year>\d{4})/(?P<month>\w{3})/(?P<day>\d{1,2})/(?P<slug>[0-9A-Za-z-]+)/$', 'post_detail_alt'),
-    url(r'^(?P<year>\d{4})/(?P<month>\w{3})/(?P<day>\d{1,2})/$', 'post_day_alt'),
-    url(r'^(?P<year>\d{4})/(?P<month>\w{3})/$', 'post_month_alt'),
+    url(r'^(?P<year>\d{4})/(?P<month>\w{3})/(?P<day>\d{1,2})/(?P<slug>[0-9A-Za-z-]+)/$', 'post_detail_alt', name='post-detail-alt'),
+    url(r'^(?P<year>\d{4})/(?P<month>\w{3})/(?P<day>\d{1,2})/$', 'post_day_alt', name='list-day-alt'),
+    url(r'^(?P<year>\d{4})/(?P<month>\w{3})/$', 'post_month_alt', name="list-month-alt"),
     # Two digit for month is now the standard format.
     url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<slug>[0-9A-Za-z-]+)/$', 'post_detail', name='post-detail'),
     url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/$', 'post_day', name='list-day'),

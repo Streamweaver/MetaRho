@@ -65,7 +65,7 @@ class PostManagerTest(TestCase):
         expected = 2 # Should now be 1 with postdated pub_date.
         self.failUnlessEqual(expected, actual, 'Expected %s posts and returned %s!' % (expected, actual))
 
-class PostTest(TestCase):
+class ModelPostTest(TestCase):
 
     fixtures = ['loremauth.json', 'loremblog.json']
 
@@ -118,73 +118,6 @@ class PostTest(TestCase):
         expected = 'test-title-1-2'
         self.failUnlessEqual(post2.slug, expected, 'Post2 slug was %s but expected %s' % (post2.slug, expected))
 
-# Removing until I rebuild overall blog structure and am ready to refactor importer.
-#class WordPressExportParserTest(TestCase):
-#    '''Tests the import scripts as it relates to interation with blog app.'''
-#
-#    fixtures = ['loremauth.json',]
-#
-#    def setUp(self):
-#        self.owner = User.objects.get(pk=1)
-#        file = 'blog/fixtures/wordpress.test.xml'
-#        self.wp = WordPressExportParser(file, self.owner.username)
-#
-#    def test_import_tags(self):
-#        '''Tests the Tag Import'''
-#        self.wp.import_tags()
-#        expected = 30
-#        actual = Tag.objects.all().count()
-#        self.failUnlessEqual(expected, actual, 'Expected %s and return %s Tags.' % (expected, actual))
-#
-#    def test_import_topics(self):
-#        '''Test the import of Topics.'''
-#        self.wp.import_catagories()
-#        expected = 2
-#        actual = Topic.objects.all().count()
-#        self.failUnlessEqual(expected, actual, 'Expected %s and returned %s Topics.' % (expected, actual))
-#
-#    def test_import_posts(self):
-#        '''Tests the Import of posts.'''
-#
-#        # Make a user to assign as an author.
-#        user = User(username='Fakeuser', password='notgood', email='fakeuser@email.com')
-#        user.save()
-#
-#        # Start with zero posts.
-#        posts = Post.objects.published()
-#        expected = 0
-#        actual = posts.count()
-#        self.failUnlessEqual(expected, actual, 'Expected %s posts and parsed %s.' % (expected, actual))
-#
-#        # Import the blog entries.
-#        self.wp.import_catagories()
-#        self.wp.import_tags()
-#        self.wp.import_posts()
-#        posts = Post.objects.all()
-#        expected = 4
-#        actual = posts.count()
-#        self.failUnlessEqual(expected, actual, 'Imported %s posts but expected %s.' % (actual, expected))
-#
-#        # Test creation of post meta and
-#        testpost  = Post.objects.get(slug='here-we-go')
-#
-#        # Test PostMeta being created correctly.
-#        postmeta = testpost.postmeta_set.all()
-#        expected = 13
-#        actual = postmeta.count()
-#        self.failUnlessEqual(expected, actual, 'Expected %s and returned %s Post Meta attributes.' % (expected, actual))
-#
-#        # Test Tags being created and related correctly.
-#        tagcount = testpost.tags.count()
-#
-#        expected = 1
-#        self.failUnlessEqual(expected, tagcount, 'Expected %s and returned %s tags.' % (expected, tagcount))
-#
-#        # Test Topics being created and related correctly.
-#        topiccount = testpost.topics.all().count()
-#        expected = 1
-#        self.failUnlessEqual(expected, topiccount, 'Expected %s and returned %s topics.' % (expected, topiccount))
-        
 class ViewTest(TestCase):
     '''
     Tests the various views returned  by the app.
@@ -210,7 +143,18 @@ class ViewTest(TestCase):
             url = reverse('blog:post-detail', args=attrs)
             code = self.client.get(url).status_code
             self.failUnlessEqual(expected[post.status], code, 'Expected %s but returned %s for %s' % (expected[post.status], code, url))
-        
+
+    def test_post_detail_alt(self):
+        '''Tests individual entry return with alt urls.'''
+        # Fetch All Posts and make sure they work as expected.
+        expected = {'P': 200, 'U': 404}
+        posts = Post.objects.all()
+        for post in posts:
+            attrs = [post.pub_date.year, date.strftime(post.pub_date, '%b'), post.pub_date.day, post.slug]
+            url = reverse('blog:post-detail-alt', args=attrs)
+            code = self.client.get(url).status_code
+            self.failUnlessEqual(expected[post.status], code, 'Expected %s but returned %s for %s' % (expected[post.status], code, url))
+
     def test_wp_redirect(self):
         '''
         Tests the wp_post_redirect decorator.
@@ -236,10 +180,6 @@ class ViewTest(TestCase):
             url = reverse('blog:list-year', args=[post.pub_date.year])
             code = self.client.get(url).status_code
             self.failUnlessEqual(expected, code, 'Expected %s but returned %s for %s' % (expected, code, url))
-            # Test Feed
-#            url = '%s?format=rss' % url
-#            code = self.client.get(url).status_code
-#            self.failUnlessEqual(expected, code, 'Expected %s but returned %s for %s' % (expected, code, url))
 
     def test_post_month(self):
         '''Tests the return of month archives.'''
@@ -249,10 +189,25 @@ class ViewTest(TestCase):
             url = reverse('blog:list-month', args=[post.pub_date.year, date.strftime(post.pub_date, '%m')])
             code = self.client.get(url).status_code
             self.failUnlessEqual(expected, code, 'Expected %s but returned %s for %s' % (expected, code, url))
-            # Test Feed
-#            feed_url = '%s?format=rss' % url
-#            feed_code = self.client.get(feed_url).status_code
-#            self.failUnlessEqual(expected, feed_code, 'Expected %s but returned %s for %s' % (expected, feed_code, feed_url))
+
+    def test_post_month_alt(self):
+        '''Tests the return of month archives.'''
+        posts = Post.objects.published()
+        for post in posts:
+            # Test Normally.  i.e. 'mar'
+            expected = 200
+            month = date.strftime(post.pub_date, '%b')
+            url = reverse('blog:list-month-alt', args=[post.pub_date.year, month])
+            code = self.client.get(url).status_code
+            self.failUnlessEqual(expected, code, 'Expected %s but returned %s for %s' % (expected, code, url))
+            # Test title case.  i.e. 'Mar'
+            url = reverse('blog:list-month-alt', args=[post.pub_date.year, month.capitalize()])
+            code = self.client.get(url).status_code
+            self.failUnlessEqual(expected, code, 'Expected %s but returned %s for %s' % (expected, code, url))
+            # Test uppercase.  i.e. 'MAR'
+            url = reverse('blog:list-month-alt', args=[post.pub_date.year, month.upper()])
+            code = self.client.get(url).status_code
+            self.failUnlessEqual(expected, code, 'Expected %s but returned %s for %s' % (expected, code, url))
 
     def test_post_day(self):
         '''Tests the return for a post day list.'''
@@ -261,7 +216,7 @@ class ViewTest(TestCase):
         expected = 200
         code = self.client.get(url).status_code
         self.failUnlessEqual(code, expected, 'Expected %s but returned %s for %s' % (expected, code, url))
-        
+
         # Test an unpublished one.
         attrs = ['2010', '03', '23']
         url = reverse('blog:list-day', args=attrs)
@@ -270,22 +225,12 @@ class ViewTest(TestCase):
         posts = len(response.context['post_list'])
         self.failUnlessEqual(posts, expected, 'Expected %s posts but returned %s for %s' % (expected, posts, url))
 
-# Removing until I reintegrate tagging and topics.
-#    def test_post_tag(self):
-#        '''Tests the tags list for posts.'''
-#
-#        url = reverse('blog:post-tag', args=['ligula'])
-#        expected = 200
-#        response = self.client.get(url)
-#        code = response.status_code
-#        self.failUnlessEqual(expected, code, 'Expected %s but returned %s for %s' % (expected, code, url))
-#        posts = len(response.context['posts'])
-#        self.failUnlessEqual(1, posts, 'Expected %s but returned %s posts in %s' % (1, posts, url))
-
-#    def test_tag_all(self):
-#        '''Tests the return of the tags page.'''
-#        url = reverse('blog:tag-list')
-#        expected = 200
-#        response = self.client.get(url)
-#        code = response.status_code
-#        self.failUnlessEqual(expected, code, 'Expected %s but returned %s for %s' % (expected, code, url))
+    def test_post_day_alt(self):
+        '''Test return of posts on a day through alt view.'''
+        attrs_list = (['2010', 'mar', '23'], ['2010', 'Mar', '23'], ['2010', 'MAR', '23'])
+        expected = 1 # There are 2 but 1 is unpublished.
+        for attrs in attrs_list:
+            url = reverse('blog:list-day-alt', args=attrs)
+            response = self.client.get(url)
+            posts = len(response.context['post_list'])
+            self.failUnlessEqual(posts, expected, 'Expected %s posts but returned %s for %s' % (expected, posts, url))
