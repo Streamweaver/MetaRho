@@ -8,7 +8,6 @@
 
 {% block navlinks %}
     <li><a href="{% url site-index %}">Home</a></li>
-	<li><a href="{% url site-index %}blog">Original Blog</a></li>
     {%  if user.is_authenticated %}
         <li><a href="{% url blog:post-create %}">New Post</a></li>
     {%  endif %}

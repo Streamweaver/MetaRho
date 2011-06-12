@@ -45,9 +45,3 @@ SECRET_KEY = ''
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
 TIME_ZONE = 'America/New_York'
-
-# Open Calais Seettings
-CALAIS_API_KEY = ''
-CALAIS_SUGGEST = True
-
-
