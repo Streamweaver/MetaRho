@@ -34,7 +34,7 @@ from metarho.blog.models import Post
 class PostManagerTest(TestCase):
     '''Tests methods related to the custom post manager.'''
     
-    fixtures = ['loremauth.json', 'loremblog.json']
+    fixtures = ['loremauth.json', 'loremblog_0006.json']
     
     def setUp(self):
         # Define a default users.
@@ -67,7 +67,7 @@ class PostManagerTest(TestCase):
 
 class ModelPostTest(TestCase):
 
-    fixtures = ['loremauth.json', 'loremblog.json']
+    fixtures = ['loremauth.json', 'loremblog_0006.json']
 
     def test_save(self):
         """Tests the custom save method."""
