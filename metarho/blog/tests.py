@@ -43,27 +43,33 @@ class PostManagerTest(TestCase):
     
     def test_published(self):
         '''Tests that only published posts are returned.'''
-        actual = Post.objects.all().count()
-        expected = 4 # 3 total posts of all status
+        actual = Post.objects.raw().count()
+        expected = 4 # 4 total posts of all status
         self.failUnlessEqual(expected, actual, 'Expected %s posts and returned %s!' % (expected, actual))
 
-        actual = Post.objects.published().count()
-        expected = 2 # Only one published.
+        actual = Post.objects.all().count()
+        expected = 2 # 2 are actually published.
         self.failUnlessEqual(expected, actual, 'Expected %s posts and returned %s!' % (expected, actual))
 
         # Create a new post with a future publish date
         p = Post(title='test', content='test', status='P')
         p.author = self.author
         p.save()
-        actual = Post.objects.published().count()
+        actual = Post.objects.all().count()
         expected = 3 # Pubdate defaults to now.
         self.failUnlessEqual(expected, actual, 'Expected %s posts and returned %s!' % (expected, actual))
 
         p.pub_date = datetime.now() + timedelta(days=1)
         p.save()
-        actual = Post.objects.published().count()
+        actual = Post.objects.all().count()
         expected = 2 # Should now be 1 with postdated pub_date.
         self.failUnlessEqual(expected, actual, 'Expected %s posts and returned %s!' % (expected, actual))
+
+        # Test alt filters to ensure they only return published posts.
+        actual = Post.objects.filter(title__isnull=False).count()
+        expected = 2 # 4 total posts of all status
+        self.failUnlessEqual(expected, actual, 'Expected %s posts and returned %s!' % (expected, actual))
+
 
 class ModelPostTest(TestCase):
 
@@ -92,28 +98,11 @@ class ModelPostTest(TestCase):
         slugact = post1.slug
         self.failUnlessEqual(slugexp, slugact, 'Slug was %s but expected %s' % (slugact, slugact))
         self.failUnless(post1.pub_date, 'Post1 pub_date was not set!')
- 
-        # Set the pub_date back to setup next test.
-        new_date = datetime.now() - timedelta(days=1) - timedelta(hours=2)
-        post1.pub_date = new_date
-        post1.save()
-        
-        # Setup another post with old pubdate, then change to now to see what happens.
+
         # Test some slug collisions and such.
         p2 = p.copy()
         p2['status'] = 'P'
         post2 = Post(**p2)
-        post2.save()
-        
-        # Test the slugify feature
-        slug = 'test-title-1' 
-        self.failUnlessEqual(slug, post2.slug, 'Post2 slug was %s but expected %s' % (post2.slug, slug))
- 
-        # Set date on post 2 to the same to test unique slugify feature
-        post2.pub_date = datetime.now() - timedelta(days=1) - timedelta(hours=1)
-
-        # Test the auto-increment feature of the unique_slugify method.
-        post2.slug = None
         post2.save()
         expected = 'test-title-1-2'
         self.failUnlessEqual(post2.slug, expected, 'Post2 slug was %s but expected %s' % (post2.slug, expected))

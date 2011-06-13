@@ -43,10 +43,15 @@ class PostManager(models.Manager):
     '''
     Adds some features to the default manager for published posts
     published dates.
-    
+
+    @IMPORTANT South migrations will use Post.objects.all() by default for datamigrations, will need to use raw below.
+
     '''
-    
-    def published(self, pub_date=None):
+    def get_query_set(self):
+        """Filters out all unpublished posts by default."""
+        return super(PostManager, self).get_query_set().filter(status=PUBLISHED_STATUS, pub_date__lte=datetime.now())
+
+    def published(self):
         '''
         Only returns posts that are published and of pub_date or earlier.
 
@@ -54,9 +59,11 @@ class PostManager(models.Manager):
                          published.
 
         '''
-        if not pub_date:
-            pub_date = datetime.now()
-        return self.filter(status=PUBLISHED_STATUS, pub_date__lte=pub_date)
+        return super(PostManager, self).get_query_set().filter(status=PUBLISHED_STATUS, pub_date__lte=datetime.now())
+
+    def raw(self):
+        """Return querysets without prefiltering to only published."""
+        return super(PostManager, self).get_query_set()
     
 class Post(models.Model):
     '''Blog Entries'''
@@ -97,7 +104,7 @@ class Post(models.Model):
             
         # Create slug if none exists..
         if not self.slug:
-            qs = Post.objects.all().filter(
+            qs = Post.objects.raw().filter(
                 pub_date__year=self.pub_date.year,
                 pub_date__month=self.pub_date.month,
                 pub_date__day=self.pub_date.day

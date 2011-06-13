@@ -16,6 +16,7 @@
 
 import datetime
 import time
+import warnings
 
 from django.http import Http404
 from django.http import HttpResponseRedirect
@@ -49,7 +50,7 @@ def post_latest_feed(request):
 @format_req("rss2", post_latest_feed)
 def post_all(request):
     """Returns all User Blogs"""
-    posts = Post.objects.published()
+    posts = Post.objects.all()
 
     return render(request, 'blog/post_list.xhtml', {
             'title': 'All Posts',                                                
@@ -59,7 +60,7 @@ def post_all(request):
 def post_year(request, year):
     """Returns all posts for a particular year."""
     date = datetime.date(int(year), 1, 1)
-    posts = Post.objects.published().filter(pub_date__year=date.year)
+    posts = Post.objects.filter(pub_date__year=date.year)
 
     return render(request, 'blog/post_list.xhtml', {
             'post_list': posts,
@@ -75,7 +76,7 @@ def post_month_alt(request, year, month):
 def post_month(request, year, month):
     """Returns all posts for a particular month."""
     date = datetime.date(int(year), int(month), 1)
-    posts = Post.objects.published().filter(pub_date__year=date.year,
+    posts = Post.objects.filter(pub_date__year=date.year,
                             pub_date__month=date.month)
 
     return render(request, 'blog/post_list.xhtml', {
@@ -92,7 +93,7 @@ def post_day_alt(request, year, month, day):
 def post_day(request, year, month, day):
     """Returns all posts for a particular day."""
     date = datetime.date(int(year), int(month), int(day))
-    posts = Post.objects.published().filter(pub_date__year=date.year,
+    posts = Post.objects.filter(pub_date__year=date.year,
                             pub_date__month=date.month, pub_date__day=date.day)
 
     return render(request, 'blog/post_list.xhtml', {
@@ -120,8 +121,8 @@ def post_detail(request, year, month, day, slug):
     """Returns an individual post."""
     date = datetime.date(int(year), int(month), int(day))
     try:
-        post = Post.objects.published().get(slug=slug, pub_date__year=date.year,
-                            pub_date__month=date.month, pub_date__day=date.day)
+        post = Post.objects.get(slug=slug, pub_date__year=date.year,
+                            pub_date__month=date.month, pub_date__day=date.day, status=PUBLISHED_STATUS)
     except Post.DoesNotExist:
         raise Http404
 
@@ -191,7 +192,7 @@ def post_delete(request, id):
 
 def archive_list(request):
     """Returns a list of months by year with published posts."""
-    dates = Post.objects.published().order_by('pub_date').dates('pub_date', 'month')
+    dates = Post.objects.all().order_by('pub_date').dates('pub_date', 'month')
     return render(request, 'blog/archive_list.xhtml', {
             'dates': dates,
             'title': 'Post Archive',
@@ -201,7 +202,7 @@ def archive_list(request):
 def tag_list(request, slug):
     """Returns blog entries for this tag slug."""
     tag = get_object_or_404(Tag, slug=slug)
-    posts = Post.objects.published().filter(tags__tag__slug=slug)
+    posts = Post.objects.filter(tags__tag__slug=slug).published()
     return render(request, 'blog/post_list.xhtml', {
         'post_list': posts,
         'title': 'Posts tagged under %s' % tag.text,
