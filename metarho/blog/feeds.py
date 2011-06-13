@@ -18,9 +18,11 @@ from datetime import date
 
 from django.core.urlresolvers import reverse
 from django.contrib.syndication.views import Feed
+from django.shortcuts import get_object_or_404
 from django.utils import feedgenerator
 
 from tagging.models import Tag
+from tagging.models import TaggedItem
 
 from metarho import user_name
 from metarho.sitemeta.models import SiteInformation
@@ -157,3 +159,52 @@ class LatestPostsFeedAtom(LatestPostsFeedRss):
 
     def subtitle(self):
         return self.description()
+
+class LatestPostsByTagFeedRSS(LatestPostsFeedRss):
+
+    def get_object(self, request, tagname):
+        """Returns a tag associated with the query."""
+        return get_object_or_404(Tag, name=tagname)
+
+    def title(self, obj):
+            """
+            Returns the feed's title as a normal Python string.
+            """
+            return "Syndicated Feed of Posts tagged as %s" % obj.name
+
+    def link(self, obj):
+        """
+        Returns the feed's link as a normal Python string.
+        """
+        return reverse('blog:tag-post-list', args=[obj.name,])
+
+    def feed_guid(self, obj):
+        """
+        Returns the feed's globally unique ID as a normal Python string.
+        """
+        return reverse('blog:tag-post-list', args=[obj.name,])
+
+    def description(self, obj):
+        """
+        Returns the feed's description as a normal Python string.
+        """
+        return "Latest Posts tagged under the topic %s" % obj.name
+
+    def categories(self, obj):
+        """
+        Returns the feed's categories as iterable over strings.
+        """
+        return ['%s' % obj.name,]
+
+    def items(self, obj):
+        """
+        Returns a list of items to publish in this feed.
+        """
+        return TaggedItem.objects.get_by_model(Post.objects.published(), obj)[:10]
+
+class LatestPostsByTagFeedAtom(LatestPostsByTagFeedRSS):
+
+    feed_type = feedgenerator.Atom1Feed
+
+    def subtitle(self, obj):
+        return self.description(obj)

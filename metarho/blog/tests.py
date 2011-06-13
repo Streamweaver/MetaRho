@@ -128,7 +128,7 @@ class ViewTest(TestCase):
     
     '''
     
-    fixtures = ['loremauth.json', 'loremblog.json']
+    fixtures = ['loremauth.json', 'loremblog_0006.json', 'loremsitemeta.json']
     
     def setUp(self):
         self.client = Client()
@@ -234,3 +234,44 @@ class ViewTest(TestCase):
             response = self.client.get(url)
             posts = len(response.context['post_list'])
             self.failUnlessEqual(posts, expected, 'Expected %s posts but returned %s for %s' % (expected, posts, url))
+
+class FeedViewsTest(TestCase):
+    '''
+    Tests the various feeds returned  by the app.
+
+    user:  Julius
+    pw: hailme
+    email: ceasar@rome.org
+
+    '''
+
+    fixtures = ['loremauth.json', 'loremblog_0006.json', 'loremsitemeta.json']
+
+    def setUp(self):
+        self.client = Client()
+        self.tags = ('greek', 'nunc', 'orci', 'morbi') # Setup some standard tags to add in.
+
+    def test_feed_view(self):
+        expected = 200
+        url = reverse('blog:feed')
+        code = self.client.get(url).status_code
+        self.failUnlessEqual(code, expected, 'Expected %s but returned %s for feed url %s' % (expected, code, url))
+
+    def test_feed_tag_view(self):
+
+        post_list = Post.objects.all() # Get all posts so I can add tags.
+        for post in post_list: # Lets create some tags to appear in the feed.
+            post.tags = " ".join(self.tags + ('published',))
+            post.save()
+
+        expected = 200
+        for tag in self.tags: # test that each returns a 200 at each tag feed.
+            url = reverse('blog:tag-feed', args=[tag])
+            code = self.client.get(url).status_code
+            self.failUnlessEqual(code, expected, 'Expected %s but returned %s for tag feed %s at url %s' % (expected, code, tag, url))
+
+        # Published tags should return correctly.
+        expected = 404
+        url = reverse('blog:tag-feed', args=['doesntexist',])
+        code = self.client.get(url).status_code
+        self.failUnlessEqual(code, expected, 'Expected %s but returned %s for tag feed url %s' % (expected, code, url))

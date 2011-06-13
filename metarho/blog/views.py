@@ -211,9 +211,15 @@ def post_list_bytag(request, tagname):
     """Returns a list of Posts tagged with 'tagname'"""
     tag = get_object_or_404(Tag, name=tagname)
     post_list = TaggedItem.objects.get_by_model(Post, tag)
+    alt_links = [{
+                     'title': "Latests Posts tagged as %s" % tagname,
+                     'type': 'application/atom+xml',
+                     'href': reverse('blog:tag-feed', args=[tagname,])
+                 }]
     return render(request, 'blog/post_list.xhtml', {
         'title': 'Posts tagged under <em>%s</em>' % tagname,
         'post_list': post_list,
+        'alt_links': alt_links,
 
     })
 

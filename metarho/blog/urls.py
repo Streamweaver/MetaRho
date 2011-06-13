@@ -17,6 +17,7 @@
 from django.conf.urls.defaults import *
 
 from metarho.blog.feeds import LatestPostsFeedAtom
+from metarho.blog.feeds import LatestPostsByTagFeedAtom
 
 urlpatterns = patterns('metarho.blog.views',
     # Alt links are from a previous pattern I used for a bit using 3 char month abbreviation.
@@ -35,6 +36,7 @@ urlpatterns = patterns('metarho.blog.views',
     url(r'^tag/$', 'tag_list', name='tag-list'),
     url(r'^tag/(?P<tagname>[^/]+)/$', 'post_list_bytag', name='tag-post-list'),
     url(r'^feed/$', LatestPostsFeedAtom(), name='feed'),
+    url(r'^feed/tag/(?P<tagname>[^/]+)/$', LatestPostsByTagFeedAtom(), name='tag-feed'),
     url(r'^switchmobile/$', 'mobile_switcher', name='switch-mobile'),
     url(r'^/$', 'post_all', name='index'),
 )
