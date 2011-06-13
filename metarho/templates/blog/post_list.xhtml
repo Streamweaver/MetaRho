@@ -27,6 +27,14 @@
     </script> <!-- end script -->
 {% endblock %}
 
+{% block feed-links %}
+     {% if alt_links %}
+        {% for link in alt_links %}
+        <link rel="alternate" type="{{ link.type }}" title="{{ link.title }}" href="{{ link.href }}" />
+        {% endfor %}
+     {% endif %}
+{% endblock %}
+
 {% block style %}
     {{ block.super }}
     {% comment %} jTweetAnywhere Styles {% endcomment %}

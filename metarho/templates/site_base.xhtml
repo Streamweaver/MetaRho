@@ -15,12 +15,14 @@
   {% block page-head %}
     {% comment %}Put Extra Header information here.  Use block.super to keep the icon.{% endcomment %}
   	<link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico" type="image/x-icon" />
+    {% block feed-links %}
         {% if alt_links %}
             {% for link in alt_links %}
             <link rel="alternate" type="{{ link.type }}" title="{{ link.title }}" href="{{ link.href }}" />
             {% endfor %}
         {% endif %}
-   <link rel="alternate" type="application/atom+xml" title="Latests Blog Posts" href="{% url blog:feed %}" /> 
+   <link rel="alternate" type="application/atom+xml" title="Latests Blog Posts" href="{% url blog:feed %}" />
+    {% endblock %}
   {% endblock %}
 
   {% block style %}

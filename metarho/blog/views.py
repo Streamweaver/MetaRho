@@ -221,7 +221,6 @@ def post_list_bytag(request, tagname):
         'title': 'Posts tagged under <em>%s</em>' % tagname,
         'post_list': post_list,
         'alt_links': alt_links,
-
     })
 
 def tag_list(request):
