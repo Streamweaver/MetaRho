@@ -26,7 +26,7 @@ GRAVATAR_SIZE = getattr(settings, "GRAVATAR_SIZE", 40)
 
 register = template.Library()
 
-def gravitar_url(email, size):
+def gravatar_url(email, size):
 
     attrs = {
         'd': GRAVATAR_DEFAULT_IMAGE,
@@ -51,4 +51,4 @@ def gravatar_for_email(email, size=GRAVATAR_SIZE):
     """
     email = "%s" % email
     size = int(size)
-    return gravitar_url(email, size)
+    return gravatar_url(email, size)
