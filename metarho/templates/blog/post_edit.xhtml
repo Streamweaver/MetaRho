@@ -8,12 +8,55 @@
 
     $(function()
     {
-        var config = {
-        };
+        var ckconfig = {}
+        ckconfig.toolbar = 
+            [
+                { name: 'document',    items : [ 'Source'] },
+                { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
+                { name: 'paragraph',   items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl' ] },
+                { name: 'links',       items : [ 'Link','Unlink','Anchor' ] },
+                { name: 'insert',      items : [ 'Image','SpecialChar'] },
+                '/',
+                { name: 'styles',      items : [ 'Styles','Format','Font','FontSize' ] },
+                { name: 'colors',      items : [ 'TextColor','BGColor' ] },
+                { name: 'tools',       items : [ 'Maximize', 'ShowBlocks','-','About' ] },
+                { name: 'clipboard',   items : [ 'PasteText','PasteFromWord','-','Undo','Redo' ] },
+                { name: 'editing',     items : [ 'SpellChecker', 'Scayt' ] },
+            ];
+        ckconfig.stylesSet =
+                [
+                    // Syntax Highlighter code styles
+                    {
+                        name : 'Code: Python',
+                        element : 'pre',
+                        attributes : { 'class' : 'brush: py' }
+                    },
+                    {
+                        name : 'Code: CSS',
+                        element : 'pre',
+                        attributes : { 'class' : 'brush: css' }
+                    },
+                    {
+                        name : 'Code: HTML',
+                        element : 'pre',
+                        attributes : { 'class' : 'brush: html' }
+                    },
+                    {
+                        name : 'Code: Javascript',
+                        element : 'pre',
+                        attributes : { 'class' : 'brush: js' }
+                    },
+                    {
+                        name : 'Code: Bash',
+                        element : 'pre',
+                        attributes : { 'class' : 'brush: bash' }
+                    },
+                ]
+
         // Initialize the editor.
         // Callback function can be passed and executed after full instance creation.
-        $('#id_content').ckeditor(config);
-        $('#id_teaser').ckeditor(config);
+        $('#id_content').ckeditor(ckconfig);
+        $('#id_teaser').ckeditor(ckconfig);
     });
 
     //]]>
