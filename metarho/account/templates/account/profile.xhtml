@@ -1,0 +1,8 @@
+{% extends "account/base.xhtml" %}
+
+{% block content-title %}Profile for {{ request.user.username }}{% endblock %}
+
+{% block content-body %}
+	<p>Name: {{ user.full_name }}</p>
+    <p>Username: {{ user.username }}</p>
+{% endblock %}

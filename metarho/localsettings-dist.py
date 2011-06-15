@@ -45,3 +45,7 @@ SECRET_KEY = ''
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
 TIME_ZONE = 'America/New_York'
+
+LOGIN_URL = '/user/login/'
+LOGOUT_URL = 'user/logout/'
+LOGIN_REDIRECT_URL = '/user/'

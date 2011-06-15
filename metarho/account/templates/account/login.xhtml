@@ -1,0 +1,18 @@
+{% extends "account/base.xhtml" %}
+
+{% block content-title %}{{ title }}{% endblock %}
+
+{% block content-body %}
+    <form action="{% url account:login-form %}" method="POST">
+    {% csrf_token %}
+        {% for field in auth_form %}
+            <div class="fieldWrapper">
+                {{ field.errors }}
+                {{ field.label_tag }} {{ field }}
+            </div>
+        {%  endfor %}
+    <input type="submit" value="Login" />
+    <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+    {{ ct }}
+{%  endblock %}

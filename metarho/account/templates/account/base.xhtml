@@ -1,0 +1,29 @@
+{% extends "site_base.xhtml" %}
+{% load blog_tags %}
+
+{% block sidebar-left-blocks %}
+{{ block.super }}
+    <div id="user-actions" class="block">
+    <h2>User Options</h2>
+    <ul>
+        {% if request.user.is_authenticated %}
+            <li><a href="{% url account:logout %}">Logout</a></li>
+            <li><a href="{% url account:index %}">Profile</a></li>
+            <li><a href="{% url admin:index %}">Admin</a></li>
+        {% else %}
+            <li><a href="{% url account:login-form %}">Login</a></li>
+
+        {% endif %}
+
+    </ul>
+    </div>
+{% endblock %}
+
+{% block navlinks %}
+    <li><a href="{% url site-index %}">Home</a></li>
+    {%  if user.is_authenticated %}
+        <li><a href="{% url blog:post-create %}">New Post</a></li>
+    {%  endif %}
+    <li><a href="{% url blog:switch-mobile %}">Mobile View</a></li>
+
+{% endblock %}

@@ -27,6 +27,7 @@ urlpatterns = patterns('',
     #(r'tag/', include("metarho.ontology.tag_urls", namespace="tag")),
     #(r'topic/', include("metarho.ontology.topic_urls", namespace="topic")),
     (r'^', include("metarho.blog.urls", namespace="blog")),
+    (r'^user/', include("metarho.account.urls", namespace="account")),
 )
 
 # Enables serving of static files by Django if DEBUG is set to true
