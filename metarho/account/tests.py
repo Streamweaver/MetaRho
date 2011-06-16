@@ -22,18 +22,24 @@ Replace these with more appropriate tests for your application.
 """
 
 from django.test import TestCase
+from django.test import Client
+from django.core.urlresolvers import reverse
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.failUnlessEqual(1 + 1, 2)
+class AuthTest(TestCase):
+    """Test authentication methods."""
+    
+    fixtures = ['loremauth.json']
 
-__test__ = {"doctest": """
-Another way to test that 1 + 1 is equal to 2.
+    def setUp(self):
+        self.client = Client()
 
->>> 1 + 1 == 2
-True
-"""}
+    def test_authenticate_user(self):
+        fail_user = {'username': 'Octavian', 'password': 'killceasar'}
+        response = self.client.post(reverse('account:login-form'), fail_user)
+        expected = 1
+        actual = len(response.context['auth_form'].errors)
+        self.assertEqual(expected, actual, "FailUser did not raise error on login as expected. Expected %s; Raised: %s;" % (expected, actual))
 
+        good_user = {'username': 'Julius', 'password': 'hailme'}
+        response = self.client.post(reverse('account:login-form'), good_user)
+        self.assertRedirects(response, reverse('account:index'))

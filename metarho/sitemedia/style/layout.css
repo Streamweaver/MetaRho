@@ -110,6 +110,13 @@ h1.title {
     margin-left: 0em;
 }
 
+/* Error Msgs */
+.errorlist {
+    list-style-image: url('images/bullet_error.png');
+    color: #fec24f;
+    font-weight: bold;
+}
+
 /* Social Media Links */
 .social_nav {
     display: inline;
