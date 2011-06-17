@@ -1,10 +1,10 @@
 {% extends "account/base.xhtml" %}
 {% load account_tags %}
 
-{% block content-title %}Profile for {{ request.user.username }}{% endblock %}
+{% block content-title %}Profile for {{ user.username }}{% endblock %}
 
 {% block content-body %}
-     {% gravatar_for_email user.email 80 %}
-	<p><strong>Name:</strong> {{ user.full_name }}</p>
-    <p><strong>Username:</strong> {{ user.username }}</p>
+     {% gravatar_for_email user.email 120 %}
+	<strong>Profile information coming soon. For now, check out my icon and how man-pretty I am!</strong>
+
 {% endblock %}

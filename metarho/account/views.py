@@ -46,7 +46,6 @@ def logout_user(request):
     return render(request, 'account/logout.xhtml', {})
     
 
-@login_required
 def profile(request, username=None):
     """For now it just renders the proper user in a template"""
     uname = username or request.user.username
