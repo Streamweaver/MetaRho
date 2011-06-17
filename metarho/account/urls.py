@@ -20,5 +20,6 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns('metarho.account.views',
     url(r'^login/$', 'authenticate_user', name='login-form'),
     url(r'^logout/$', 'logout_user', name='logout'),
+    url(r'^(?P<username>\w+)/$', 'profile', name='profile'),
     url(r'^$', 'profile', name='index'),
 )

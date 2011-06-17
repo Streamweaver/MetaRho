@@ -7,10 +7,8 @@
 {% endblock %}
 
 {% block navlinks %}
-    <li><a href="{% url site-index %}">Home</a></li>
+    {{ block.super }}
     {%  if user.is_authenticated %}
         <li><a href="{% url blog:post-create %}">New Post</a></li>
     {%  endif %}
-    <li><a href="{% url blog:switch-mobile %}">Mobile View</a></li>
-
 {% endblock %}

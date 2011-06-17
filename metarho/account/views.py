@@ -18,8 +18,10 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render
 from django.shortcuts import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 def authenticate_user(request):
     """Logs a user into the application."""
@@ -45,8 +47,10 @@ def logout_user(request):
     
 
 @login_required
-def profile(request):
+def profile(request, username=None):
     """For now it just renders the proper user in a template"""
+    uname = username or request.user.username
+    user = get_object_or_404(User, username=uname)
     return render(request, 'account/profile.xhtml', {
-        'user': request.user
+        'user': user
     })

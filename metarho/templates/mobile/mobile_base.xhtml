@@ -39,9 +39,18 @@
     <div id="navbar">
         <ul>
             {% block navlinks %}
-                <li><a href="{% url site-index %}">Home</a></li>
+				<li><a href="{% url site-index %}">Home</a></li>
                 <li><a href="{% url blog:archive-list %}">Archive</a></li>
                 <li><a href="{% url blog:tag-list %}">Tags</a></li>
+                <li><a href="/wiki/">Gaming Wiki</a></li>
+                {% if request.user.is_authenticated %}
+                    <li><a href="{% url account:logout %}">Logout</a></li>
+                    <li><a href="{% url account:index %}">Profile</a></li>
+                    <li><a href="{% url admin:index %}">Admin</a></li>
+                {% else %}
+                    <li><a href="{% url account:login-form %}">Login</a></li>
+                {% endif %}
+                <li><a href="{% url blog:switch-mobile %}">Mobile View</a></li>
             {% endblock %}
         </ul>
     </div>

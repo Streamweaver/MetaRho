@@ -6,7 +6,7 @@
        </span><span property="dcterms:modified" content="{{ post.date_modified|date }}" />
     ago  by
        <span property="dcterms:creator"{% if post.author.get_full_name %} content="{{ post.author.get_full_name }}"{% endif %}>
-           {{ post.author.username }}
+           <a href="{% url account:profile post.author.username %}">{{ post.author.username }}</a>
        </span>
     on <a href="{% url blog:list-day post.pub_date.year post.pub_date|date:"m" post.pub_date|date:"d" %}">
     {{ post.pub_date|date:"d" }}</a>
