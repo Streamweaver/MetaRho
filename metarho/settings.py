@@ -97,6 +97,7 @@ MIDDLEWARE_CLASSES = (
     'pagination.middleware.PaginationMiddleware', # From django-pagination
     'django_mobile.middleware.MobileDetectionMiddleware', # From django-mobile
     'django_mobile.middleware.SetFlavourMiddleware', # from django-mobile
+    # 'metarho.middleware.ProfileMiddleware' # Uncomment this to allow profiles
 )
 
 ROOT_URLCONF = 'metarho.urls'
