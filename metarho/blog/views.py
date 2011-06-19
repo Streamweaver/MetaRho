@@ -30,7 +30,6 @@ from tagging.models import Tag
 from tagging.models import TaggedItem
 
 from metarho import PUBLISHED_STATUS
-from metarho.blog.decorators import wp_post_redirect
 from metarho.decorators import format_req
 from metarho.blog.models import Post
 from metarho.blog.feeds import LatestPostsFeedAtom
@@ -45,9 +44,6 @@ def post_latest_feed(request):
     return HttpResponseRedirect(reverse('blog:feed'))
 
 # Dectorators allow some compatability with previous wordpress querystring URLs
-@wp_post_redirect
-@format_req("rss", post_latest_feed)
-@format_req("rss2", post_latest_feed)
 def post_all(request):
     """Returns all User Blogs"""
     posts = Post.objects.all()
@@ -199,15 +195,6 @@ def archive_list(request):
             })
 
 # Views related to blogpost topics only.
-def tag_list(request, slug):
-    """Returns blog entries for this tag slug."""
-    tag = get_object_or_404(Tag, slug=slug)
-    posts = Post.objects.filter(tags__tag__slug=slug).published()
-    return render(request, 'blog/post_list.xhtml', {
-        'post_list': posts,
-        'title': 'Posts tagged under %s' % tag.text,
-        })
-
 def post_list_bytag(request, tagname):
     """Returns a list of Posts tagged with 'tagname'"""
     tag = get_object_or_404(Tag, name=tagname)
@@ -231,13 +218,10 @@ def tag_list(request):
         'tag_list': tag_list,
     })
 
-from metarho.settings import INSTALLED_APPS
-if 'django_mobile' in INSTALLED_APPS:
-    from django_mobile import set_flavour
-    from django_mobile import get_flavour
-
 def mobile_switcher(request):
-        #next = request.GET['page']
+        if 'django_mobile' in INSTALLED_APPS:
+            from django_mobile import set_flavour
+            from django_mobile import get_flavour
         try:
             if get_flavour() == 'mobile':
                 set_flavour('full', request=request, permanent=True)
