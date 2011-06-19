@@ -30,8 +30,6 @@ from tagging.models import Tag
 from tagging.models import TaggedItem
 
 from metarho import PUBLISHED_STATUS
-from metarho.blog.decorators import wp_post_redirect
-from metarho.decorators import format_req
 from metarho.blog.models import Post
 from metarho.blog.feeds import LatestPostsFeedAtom
 from metarho.blog.forms import PostForm
@@ -45,9 +43,6 @@ def post_latest_feed(request):
     return HttpResponseRedirect(reverse('blog:feed'))
 
 # Dectorators allow some compatability with previous wordpress querystring URLs
-# @wp_post_redirect
-@format_req("rss", post_latest_feed)
-@format_req("rss2", post_latest_feed)
 def post_all(request):
     """Returns all User Blogs"""
     posts = Post.objects.all()
