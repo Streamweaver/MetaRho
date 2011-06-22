@@ -92,17 +92,16 @@ class Post(models.Model):
 
     def __unicode__(self):
         return self.title
-    
-    def clean(self):
+
+    def save(self, force_insert=False, force_update=False):
         '''
-        Provide some custom validation and other tasks.
-        
+        Custom save method to handle slugs and pubdate such.
+
         '''
         # Set pub_date if none exist and publish is true.
         if not self.pub_date:
             self.pub_date = datetime.now() # No publishing without a pub_date
-            
-        # Create slug if none exists..
+
         if not self.slug:
             qs = Post.objects.raw().filter(
                 pub_date__year=self.pub_date.year,
@@ -112,14 +111,6 @@ class Post(models.Model):
             # Slug should be unique for date.
             unique_slugify(self, self.title, queryset=qs)
 
-    def save(self, force_insert=False, force_update=False):
-        '''
-        Custom save method to handle slugs and such.
-        @TODO Remove this once if using Django 1.2
-        
-        '''
-        # @NOTE this is a work around until I go to django 1.2
-        self.clean()
         super(Post, self).save(force_insert, force_update) # Actual Save method.
 
     class Meta:
