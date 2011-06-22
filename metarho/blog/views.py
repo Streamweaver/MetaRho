@@ -139,7 +139,8 @@ def post_edit(request, id=None):
     instance = None
 
     if id:
-        instance = get_object_or_404(Post, id=id)
+        # Needed to invoke raw to grab all objects or unpublished result in 404 errors
+        instance = get_object_or_404(Post.objects.raw(), id=id)
 
     title = "Create New Post"
     if instance:
