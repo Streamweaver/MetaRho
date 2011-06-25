@@ -37,6 +37,12 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ('status', 'pub_date', 'author')
     inlines = [PostMetaInline,]
     formfield_overrides = { models.TextField: {'widget': forms.Textarea(attrs={'class':'tinymce'})}, }
+
+    def queryset(self, request):
+        """
+        Needed to override the custom default manager for only published posts.
+        """
+        return Post.objects.raw()
     
     class Media:
         js = (

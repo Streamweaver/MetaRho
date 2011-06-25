@@ -18,7 +18,6 @@ import datetime
 import time
 import warnings
 
-from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
@@ -35,6 +34,7 @@ from metarho.blog.feeds import LatestPostsFeedAtom
 from metarho.blog.forms import PostForm
 from metarho.blog.forms import ConfirmForm
 from metarho.settings import INSTALLED_APPS
+from metarho.wordpress.decorators import wp_post_redirect
 
 def post_latest_feed(request):
     """
@@ -42,6 +42,7 @@ def post_latest_feed(request):
     """
     return HttpResponseRedirect(reverse('blog:feed'))
 
+@wp_post_redirect
 def post_all(request):
     """Returns all User Blogs"""
     posts = Post.objects.all()
@@ -110,15 +111,11 @@ def post_detail_alt(request, year, month, day, slug):
     date = datetime.date(*tt[:3])
     return post_detail(request, date.year, date.month, date.day, slug)
 
-# Test conversion to number based dates
 def post_detail(request, year, month, day, slug):
     """Returns an individual post."""
     date = datetime.date(int(year), int(month), int(day))
-    try:
-        post = Post.objects.get(slug=slug, pub_date__year=date.year,
-                            pub_date__month=date.month, pub_date__day=date.day, status=PUBLISHED_STATUS)
-    except Post.DoesNotExist:
-        raise Http404
+    post = get_object_or_404(Post, slug=slug, pub_date__year=date.year,
+                            pub_date__month=date.month, pub_date__day=date.day)
 
     return render(request, 'blog/post_detail.xhtml', {
             'post': post,

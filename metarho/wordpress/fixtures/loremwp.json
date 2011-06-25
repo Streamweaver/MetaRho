@@ -1,0 +1,1 @@
+[{"pk": 1, "model": "wordpress.wpmapping", "fields": {"post": 1, "wp_id": 7}}, {"pk": 2, "model": "wordpress.wpmapping", "fields": {"post": 2, "wp_id": 10}}, {"pk": 3, "model": "wordpress.wpmapping", "fields": {"post": 3, "wp_id": 1}}, {"pk": 4, "model": "wordpress.wpmapping", "fields": {"post": 4, "wp_id": 4}}]

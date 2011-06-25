@@ -120,7 +120,7 @@ INSTALLED_APPS = (
     'metarho.account',
     'metarho.sitemeta',
     'metarho.blog',
-    'south', # Depends on south migrations for managing schemas.
+    'metarho.wordpress', # Depends on south migrations for managing schemas.
     'tagging', # Comment out if not using Django Tagging.
     'pagination', # Template object pagination.
     'django_mobile', # Mobile Template Middleware.
