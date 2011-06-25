@@ -1,0 +1,104 @@
+BELOW IS A SAMPLE OF THE DIC VALUES AS 'KEY: VALUE' OF A WP BLOG
+
+
+mt_keywords: letter to dad
+permaLink: http://www.flagonwiththedragon.com/?p=2532
+wp_slug:
+description: Hey Dad,
+
+I hope you're well.  I had a bit of a disappointment this week after putting all
+ that work into my Valdosta State application I found out right away the paperwo
+rk didn't get there in time.  I don't have a great ability to just see it as a s
+equence of paperwork issues and instead just kind of feel overwhelmed like I usu
+ally do that the process is just too difficult for me to work through.
+
+I feel like what i want to do is find anther program that will except me but I'm
+ not sure how good of an approach that is either. This whole sub-text of "will y
+ou accept me" can cause a lot of resentment for me since I'm doing well in my fi
+eld. There just seems a dramatic disconnect that I've been so successful in this
+ field but feel like there's no way for me to get accepted to study it.  I just
+feel so frustrated and I know that's just because it's wrapped up in other thing
+s.
+
+I really wish I had better skills at managing this kind of thing but between you
+ and Mom, it's just not something that was going to be passed onto me.  I often
+feel like I really want people to understand what it's like for me and find it f
+rustrating I can't communicate that.  You never finished yourself, Mom didn't, J
+ohnny didn't and I can feel very much like there's just something fundamentally
+wrong with me that will always make it so I'll never be able to participate in t
+he better things in life.  That there's some kind of taint that will always foll
+ow me. That anything I do is either doomed to be seen as either compromised beca
+use I didn't have the talent ,or feel like I'm getting a hug in the sSpecial Oly
+mpics because it's amazing what someone with my limitations has been able to do.
+  I don't feel like I can just be a competent person.
+
+It makes me very tired.
+title: School Woes
+post_status: draft
+date_created_gmt: 19991130T00:00:00
+mt_excerpt:
+userid: 1
+dateCreated: 20100318T10:51:07
+custom_fields: [{'value': '1', 'id': '1531', 'key': '_edit_last'}, {'value': '12
+68927485', 'id': '1530', 'key': '_edit_lock'}]
+wp_author_display_name: Streamweaver
+link: http://www.flagonwiththedragon.com/?p=2532
+mt_text_more:
+mt_allow_comments: 1
+wp_password:
+postid: 2532
+wp_author_id: 1
+categories: ['Fluff']
+mt_allow_pings: 1
+
+Streamweaver@Serenity /cygdrive/c/Users/Streamweaver/eclipseworkspace/flagonwith
+thedragon/src/flagonwiththedragon/blog
+
+ANOTHER SAMPLE
+
+excerpt:encoded:
+wp:post_type: post
+description:
+wp:post_id: 3
+wp:menu_order: 0
+wp:post_date_gmt: 2002-02-27 18:45:00
+wp:post_password:
+wp:comment_status: open
+guid: http://www.flagonwiththedragon.com/?p=3
+wp:postmeta: [{u'wp:meta_key': u'_edit_lock', u'wp:meta_value': u'1238988601'},
+{u'wp:meta_key': u'_edit_last', u'wp:meta_value': u'1'}, {u'wp:meta_key': u'unt_
+lj_username', u'wp:meta_value': u'Streamweaver'}, {u'wp:meta_key': u'unt_lj_erro
+r', u'wp:meta_value': u'153 : Incorrect time value: You have an entry which was
+posted at 2009-02-06 17:05, but you\'re trying to post an entry before this. Ple
+ase check the date and time of both entries. If the other entry is set in the fu
+ture on purpose, edit that entry to use the "Date Out of Order" option. Otherwis
+e, use the "Date Out of Order" option for this entry instead.'}, {u'wp:meta_key'
+: u'unt_lj_synchop', u'wp:meta_value': u'synchall'}, {u'wp:meta_key': u'unt_lj_n
+ocomment', u'wp:meta_value': u'notchecked'}, {u'wp:meta_key': u'unt_lj_linkback'
+, u'wp:meta_value': u'checked'}, {u'wp:meta_key': u'unt_lj_linkbacktext', u'wp:m
+eta_value': u'Flagon With The Dragon'}, {u'wp:meta_key': u'unt_lj_securitylevel'
+, u'wp:meta_value': u'public'}, {u'wp:meta_key': u'unt_lj_entry', u'wp:meta_valu
+e': ''}]
+category: [{}, {}, {}, {}]
+wp:comment: [{u'wp:comment_date_gmt': u'2002-02-27 13:06:38', u'wp:comment_autho
+r': {}, u'wp:comment_content': {}, u'wp:comment_date': u'2002-02-27 08:06:38', u
+'wp:comment_approved': u'1', u'wp:comment_type': '', u'wp:comment_author_url': '
+', u'wp:comment_author_IP': u'66.56.12.201', u'wp:comment_author_email': u'anony
+mous@livejournal.com', u'wp:comment_user_id': u'0', u'wp:comment_id': u'2', u'wp
+:comment_parent': u'0'}, {u'wp:comment_date_gmt': u'2002-03-01 10:13:44', u'wp:c
+omment_author': {}, u'wp:comment_content': {}, u'wp:comment_date': u'2002-03-01
+05:13:44', u'wp:comment_approved': u'1', u'wp:comment_type': '', u'wp:comment_au
+thor_url': '', u'wp:comment_author_IP': u'66.56.12.201', u'wp:comment_author_ema
+il': u'streamweaver@livejournal.com', u'wp:comment_user_id': u'0', u'wp:comment_
+id': u'3', u'wp:comment_parent': u'0'}]
+wp:ping_status: open
+pubDate: Wed, 27 Feb 2002 18:45:00 +0000
+dc:creator: {}
+wp:post_parent: 0
+wp:status: publish
+title: The new Pop Culture!  Now with 20% more bullshit!
+content:encoded: {}
+wp:post_date: 2002-02-27 13:45:00
+wp:post_name: the-new-pop-culture-now-with-20-more-bullshit
+link: http://www.flagonwiththedragon.com/?p=3
+$

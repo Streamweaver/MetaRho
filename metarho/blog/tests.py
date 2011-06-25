@@ -144,16 +144,6 @@ class ViewTest(TestCase):
             code = self.client.get(url).status_code
             self.failUnlessEqual(expected[post.status], code, 'Expected %s but returned %s for %s' % (expected[post.status], code, url))
 
-#    def test_wp_redirect(self):
-#        '''
-#        Tests the wp_post_redirect decorator.
-#
-#        '''
-#        expected = 301
-#        url = '?p=4'
-#        code = self.client.get(url).status_code
-#        self.failUnlessEqual(code, expected, 'Expected %s but returned %s for %s' % (expected, code, url))
-        
     def test_post_all(self):
         '''Tests the default return of posts.'''
         url = reverse('blog:index')

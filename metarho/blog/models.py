@@ -24,6 +24,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.contenttypes import generic
 
 from metarho import PUBLISHED_STATUS
+from metarho import UNPUBLISHED_STATUS
 from metarho import PUB_STATUS
 from metarho import unique_slugify
 
@@ -88,10 +89,19 @@ class Post(models.Model):
     @models.permalink
     def get_absolute_url(self):
         '''Get projects url.'''
-        return reverse('blog:post-detail', args=[self.pub_date.year, date.strftime(self.pub_date, '%m'), date.strftime(self.pub_date, '%d'), self.slug])
+        post_args = {
+            'year': self.pub_date.year,
+            'month': self.pub_date.month,
+            'day': self.pub_date.day,
+            'slug': self.slug,
+        }
+        return reverse('blog:post-detail', kwargs=post_args)
 
     def __unicode__(self):
-        return self.title
+        return u"%s" % self.__str__()
+
+    def __str__(self):
+        return "%s" % self.title
 
     def save(self, force_insert=False, force_update=False):
         '''
