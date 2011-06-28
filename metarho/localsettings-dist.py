@@ -49,3 +49,8 @@ TIME_ZONE = 'America/New_York'
 LOGIN_URL = '/user/login/'
 LOGOUT_URL = 'user/logout/'
 LOGIN_REDIRECT_URL = '/user/'
+
+# Livejournal Settings
+# @TODO base this on xpost models when that is implemented
+LJ_USERNAME = None
+LJ_PASSWORD = None

@@ -16,7 +16,6 @@
 
 import datetime
 import time
-import warnings
 
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -30,11 +29,11 @@ from tagging.models import TaggedItem
 
 from metarho import PUBLISHED_STATUS
 from metarho.blog.models import Post
-from metarho.blog.feeds import LatestPostsFeedAtom
 from metarho.blog.forms import PostForm
 from metarho.blog.forms import ConfirmForm
 from metarho.settings import INSTALLED_APPS
 from metarho.wordpress.decorators import wp_post_redirect
+from metarho.xpost.target import LJxmlrpc, LJError
 
 def post_latest_feed(request):
     """
@@ -125,7 +124,7 @@ def post_detail(request, year, month, day, slug):
 
 # Post Admin views
 @login_required
-def post_edit(request, id=None):
+def post_edit(request, id=None, xpost=True):
     """
         Handles creating or updating of individual blog posts.
 
@@ -148,15 +147,23 @@ def post_edit(request, id=None):
     
     # Save the edited form if needed
     if request.method == 'POST' and form.is_valid():
-        tmp_form = form.save(commit=False)
+        tmp_post = form.save(commit=False)
         # Set author to current user if none set.
-        if not tmp_form.author:
-            tmp_form.author = request.user.id
+        if not tmp_post.author:
+            tmp_post.author = request.user.id
         # Set pub_date if none exist and post is published.
-        if tmp_form.status == PUBLISHED_STATUS and not tmp_form.pub_date:
-            tmp_form.pub_date = datetime.now()
-        tmp_form.save()
-        return HttpResponseRedirect(reverse('blog:post-edit', args=[tmp_form.id]))
+        if tmp_post.status == PUBLISHED_STATUS and not tmp_post.pub_date:
+            tmp_post.pub_date = datetime.now()
+        tmp_post.save()
+        if tmp_post.status == PUBLISHED_STATUS and xpost:
+            try: # Post via LJ @TODO refactor all this xpost stuff to something more reasonable
+                lj = LJxmlrpc()
+                lj.create_or_update(tmp_post, privacy='public')
+                # messages.add_message(request, messages.INFO, 'Crosspost to Livejournal Successful.')
+            except LJError, msg:
+                pass
+                # messages.add_message(request, messages.INFO, 'Crosspost to Livejournal Failed! %s' % msg)
+        return HttpResponseRedirect(reverse('blog:post-edit', args=[tmp_post.id]))
         
     return render(request, 'blog/post_edit.xhtml', {
         'title': title,
