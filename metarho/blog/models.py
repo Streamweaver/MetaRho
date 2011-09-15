@@ -31,12 +31,19 @@ from metarho import unique_slugify
 # Setup Other Apps to allow use without building strict dependencies.
 from metarho.settings import INSTALLED_APPS
 from metarho.settings import ENABLE_POST_TAGS
+from metarho.settings import ENABLE_POST_AUTOTAGING
 
+# Some exteranl app dependencies
 POST_TAGGING = False # Default to false unless it passes the settings test below.
 if ENABLE_POST_TAGS and 'tagging' in INSTALLED_APPS:
     import tagging
     from tagging.fields import TagField
     POST_TAGGING = True # Set true to tell model imports are done and fields ready.
+
+POST_AUTOTAGING = False
+if ENABLE_POST_AUTOTAGING and 'taggit' in INSTALLED_APPS:
+    from taggit.managers import TaggableManager
+    POST_AUTOTAGING = True
 
 # CUSTOM MANAGERS
 
@@ -83,6 +90,9 @@ class Post(models.Model):
     # If tagging for posts is enable and everything is setup right add the fields.
     if POST_TAGGING:
         tags = TagField(blank=True, null=True)
+
+    if POST_AUTOTAGING:
+        autotags = TaggableManager()
 
     objects = PostManager()
 

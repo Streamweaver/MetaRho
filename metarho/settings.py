@@ -124,11 +124,17 @@ INSTALLED_APPS = (
     'tagging', # Comment out if not using Django Tagging.
     'pagination', # Template object pagination.
     'django_mobile', # Mobile Template Middleware.
+    'taggit', # Added the django tagit to handle tags created from metarho autotagging.
 )
 
 # Set to TRUE to including tagging in posts.
 ENABLE_POST_TAGS = True
 FORCE_LOWERCASE_TAGS = True # Override setting in tagging module.
+
+# Settings for entity recognition and autotagging
+ENABLE_POST_AUTOTAGING = True
+CALAIS_API_KEY = 'PUT_YOUR_KEY_HERE' # Aquire this by registering at the Calais site
+CALAIS_TAG_API = 'http://api.opencalais.com/tag/rs/enrich'
 
 # Django Pagination Settings
 # PAGINATION_DEFAULT_PAGINATION = 1
